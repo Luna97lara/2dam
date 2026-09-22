@@ -1,17 +1,38 @@
 package org.example;
 
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    public static Semaphore semaphore = new Semaphore(3, true);
+    public static Random random = new Random();
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+       /*
+       Simula un aparcamiento con 3 plazas libres (Semaphore(3)) al que al llegar
+       10 coches (hilos) en momentos aleatorios, cada coche debe:
+        1. Pedir una plaza (acquire)
+        2. "Aparcar" (dormir un tiempo aleatorio)
+        3. Liberar la plaza (release())
+        Imprime en cada momento cuántas plazas libres quedan
+        */
+        for (int i = 0; i <=10 ; i++) {
+            int coche=i;
+            new Thread (() -> {
+                try {
+                    IO.println("Coche en espera: "+coche);
+                    semaphore.acquire();
+                    IO.println("Coche aparcado: "+coche);
+                    IO.println("Plazas libres: "+semaphore.availablePermits());
+                    Thread.sleep(1000+random.nextInt(2500));
+                    IO.println("Coche que se pira: "+coche);
+                    semaphore.release();
+                    IO.println("Plazas tras pirarse coche "+coche+":"+semaphore.availablePermits());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+                } catch (InterruptedException e) {
+                }
+            }).start();
         }
     }
 }
