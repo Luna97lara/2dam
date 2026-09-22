@@ -1,0 +1,153 @@
+21/09/26
+Locks, semáforos y atómicos
+lock() --> pones el .lock() --> haces lo que quieres hacer --> .unlock()
+tryLock()--> si no lo puede coger, se va.
+
+Semaphore(tamaño) --> para acceso a VARIOS recursos compartidos. Se le da un tamaño y llega hasta ahí.Es decir: es un lock() de muchas cosas. Hay que empezarlo con accquire() y terminar con release().
+
+ReentrantLock vs synchronized
+synchronized --> "Solo un hilo puede entrar aquí al mismo tiempo"
+ReentrantLock permite hacer algo parecido pero nos da mas control. Por ejemplo:
+	Lock lock = new ReentrantLock();
+Y para entrar en la zona protegida:
+	lock.lock();
+	try{
+	contador++;
+	} finally {
+		lock.unlock();
+	}
+La estructura es:
+			lock.lock()
+				↓
+			🔒 cojo el bloqueo
+				↓
+			código protegido
+				↓
+			🔓 lock.unlock()
+finally --> para asegurarnos de que el bloqueo se libere aunque ocurra un error; "pase lo que pase, al terminar, suelta el candado"
+try{
+	//trabajo
+} finally {
+	lock.unlock();
+}
+
+Posibilidades que ReentrantLock tiene frente a synchronized:
+	- tryLock()
+	- fairness
+	- lockInterruptibly()
+	
+tryLock() --> "¿Estás libre? Pruebo"
+Con lock():
+	lock.lock();
+Si otro hilo tiene el bloqueo:
+		Hilo 1 → 🔒 tiene el lock
+
+		Hilo 2 → quiere lock
+				 ↓
+				 ⏳ espera...
+El hilo 2 se queda esperando.
+Con lock.tryLock() el hilo pregunta: "¿Puedo coger el bloqueo?" y si está libre lo coges, si no, sigue haciendo otra cosa
+	if (lock.tryLock()){
+		try{
+			contador++;
+		} finally {
+			lock.unlock();
+		}
+	} else {
+		sout("No he podido obtener el bloqueo")
+	}
+Esto es útil cuando no quieres quedarte esperando obligatoriamente.
+
+fairness --> repartir los turnos
+Tienes:
+	Hilo 1
+	Hilo 2
+	Hilo 3
+y todos quieren el mismo Lock
+No tienes garantías de que se respete un orden tipo 1 -> 2 -> 3, pero si creas un ReentrantLock indicando que quieres fairness:
+	Lock lock = new ReentrantLock(true);
+El true significa: "Intenta dar el bloqueo respetando el orden de espera de los hilos" (política de equidad)
+
+lockInterruptibly() --> el hilo puede ser interrumpido mientras está esperando. Cuando quieres poder cancelar una espera.
+		Hilo 1 → 🔒 tiene lock
+
+		Hilo 2 → intenta conseguirlo
+				 ↓
+				 ⏳ esperando
+				 ↓
+			  interrupción
+				 ↓
+				 ❌ deja de esperar
+				 
+Semaphore
+Con synchronized o lock normalmente tenemos un permiso (solo un hilo), pero imagina que tenemos 3 plazas de aparcamiento:
+	Semaphore semaforo = new Semaphore(3);
+El 3 = hay tres permisos disponibles, entonces pueden entrar hasta 3 hilos simultáneamente.
+						 SEMÁFORO
+					   🟢 🟢 🟢
+					   3 permisos
+
+			Hilo 1 → 🟢
+			Hilo 2 → 🟢
+			Hilo 3 → 🟢
+
+			Hilo 4 → ⏳ espera
+			
+acquire() y release()
+semaforo.acquire(); --> para coger un permiso
+semaforo.release(); --> para devolverlo
+Por ejemplo:
+	Semaphore semaforo = new Semaphore(3);
+	semaforo.acquire();
+	try {
+		//utiliza recurso
+	} finally {
+		semaforo.release();
+	}
+La lógica es:
+			acquire()
+			   ↓
+			🎟️ cojo un permiso
+			   ↓
+			utilizo el recurso
+			   ↓
+			release()
+			   ↓
+			🎟️ devuelvo el permiso
+Por lo que:
+			Hilo 1 ──┐
+			Hilo 2 ──┼── 🏠 RECURSO
+			Hilo 3 ──┘
+
+			Hilo 4 → ⏳ espera
+y cuando uno termina:
+			Hilo 1 → release()
+						 ↓
+					 🟢 permiso
+						 ↓
+			Hilo 4 → entra
+			
+Clases atómicas --> sirven para trabajar con números de forma segura entre varios hilos en determinadas operaciones.Por ejemplo, antes teníamos int contador = 0; y contador++; que podía provocar una condición de carrera
+Con:
+AtomicInteger contador = new AtomicInteger(0);
+podemos hacer:
+contador.incrementAndGet();
+Y la operación de incrementar está preparada para funcionar correctamente cuando varios hilos acceden al mismo AtomicInteger
+
+int vs AtomicInteger
+Antes:
+	int contador=0;
+	contador++;
+Ahora:
+	AtomicInteger contador = new AtomicInteger(0);
+	contador.incrementAndGet();
+Y para obtener el valor:
+	contador.get();
+	
+AtomicLong --> lo mismo pero para un long
+
+¿Cuál utilizo?
+synchronized --> bloquear código. Cuando quieres proteger una sección crítica de forma sencilla
+ReentrantLock --> bloquear código. Necesitas tener más control
+Semaphore --> Limitar accesos. Permitir que varios hilos, pero solo hasta cierto número, accedan a un recurso
+AtomicInteger --> Contador numérico. Para contador numérico compartidos

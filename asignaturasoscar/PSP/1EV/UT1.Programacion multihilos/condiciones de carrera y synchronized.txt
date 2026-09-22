@@ -1,0 +1,189 @@
+20/09/2026
+Cuando varios hilos acceden y modifican el mismo dato al mismo tiempo, pueden pisarse entre ellos.
+Synchronized sirve para evitarñe
+
+Race condition --> dos o más hilos acceden al mismo recurso compartido y el resultado depende del orden en que se ejecutan
+
+Tenemos:
+int contador=0;
+Y dos hilos:
+Hilo 1
+Hilo 2
+
+Ambos hacen contador++;
+
+Podríamos imaginar que pasa esto:
+	Hilo 1 → lee contador = 0
+	Hilo 2 → lee contador = 0
+
+	Hilo 1 → suma 1 → escribe 1
+	Hilo 2 → suma 1 → escribe 1
+	
+Resultado --> 1
+Hemos hecho dos incrementos pero el contador solo ha aumentado una vez
+¿Por qué?
+Nosotros escribimos contador++, pero Java  no lo trata como una operación mágica indivisible:
+	1.LEER el contador
+	2. SUMAR 1
+	3. GUARDAR el resultado
+Es decir, contador++ sería conceptualmente:
+	valor=contador;
+	valor=valor+1;
+	contador=valor;
+	
+Ahora imagina que tenemos contador=0 y dos hilos
+Hilo 1 --> Lee contador -> 0 pero justo en ese momento el sistema cambia a:
+Hilo 2 --> Lee contador -> 0
+Los dos tienen ahora el mismo valor
+Después:
+	Hilo 1 -> 0+1 -> 1
+	Hilo 2 -> 0+1 -> 1
+Y finalmente:
+	Hilo 1 -> guarda 1
+	Hilo 2 -> guarda 1
+Resultado:
+	contador = 1
+Cuando esperábamos:
+	contador = 2
+Esto es una condición de carrera (race condition)
+
+Sección crítica --> la parte del código que accede o modifica un recurso compartido y que no queremos que varios hilos ejecuten simultáneamente. En nuestro ejemplo, sería contador++;
+Lo que queremos conseguir es: 
+			Hilo 1 → entra
+					 ↓
+				  contador++
+					 ↓
+			Hilo 1 → sale
+
+			Hilo 2 → entra
+					 ↓
+				  contador++
+					 ↓
+			Hilo 2 → sale
+Y no:
+			Hilo 1 → entra
+			Hilo 2 → entra
+			Hilo 1 → contador++
+			Hilo 2 → contador++
+			
+synchronized --> "Mientras este hilo esté ejecutando esta parte, otros hilos tendrán que esperar"
+
+public synchronized void incrementar() {
+    contador++;
+}
+Ahora tenemos:
+			Hilo 1
+			   ↓
+			🔐 entra en incrementar()
+			   ↓
+			contador++
+			   ↓
+			🔓 sale
+
+			Hilo 2
+			   ↓
+			🔐 entra
+			   ↓
+			contador++
+			   ↓
+			🔓 sale
+Y así evitamos que ambos modifiquen el contador a la vez.
+
+En un método, es como decirle a Java que el método está protegido: solo puede ejecutarse un hilo sobre el objeto al mismo tiempo. Por ejemplo:
+public class Contador {
+
+    private int contador = 0;
+
+    public synchronized void incrementar() {
+        contador++;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+}
+Tenemos un objeto Contador contador = new Contador();
+Y dos hilos que lo utilizan:
+					  Contador
+						 │
+				  contador = 0
+					/          \
+				   /            \
+			 Hilo 1             Hilo 2
+Ambos quieren llamar a contador.incrementar();
+Pero como incrementar() es synchronized, no pueden entrar los dos a la vez:
+			Hilo 1 → 🔐 entra
+					  contador++
+					  🔓 sale
+
+			Hilo 2 → 🔐 entra
+					  contador++
+					  🔓 sale
+
+
+Monitor intrínseco
+Cuando utilizas synchronized, Java necesita saber quién tiene el "candado". Cada objeto de Java tiene asociado un mecanismo interno de bloqueo llamado monitor. 
+Imagina que cada objeto lleva un candado invisible:
+			┌────────────────────────┐
+			│      objeto Contador   │
+			│                        │
+			│   contador = 0         │
+			│                        │
+			│   🔐 monitor           │
+			└────────────────────────┘
+Cuando un hilo entra en un método synchronized de ese objeto (en nuestro caso, contador.incrementar();), es como si dijera: "cojo el candado de este objeto".
+Mientras lo tenga:
+			Hilo 1 → 🔐
+			Hilo 2 → ⏳ esperando
+			Hilo 3 → ⏳ esperando
+Cuando termina:
+			Hilo 1 → 🔓
+Y así puede entrar el siguiente.
+
+synchronized también puede utilizarse por bloques; es decir, no tenemos que proteger necesariamente todo un método, sino que podemos hacerlo por partes:
+public void incrementar() {
+
+    synchronized (this) {
+        contador++;
+    }
+
+}
+"Voy a bloquear el monitor de this mientras se ejecuta este bloque".
+public void incrementar() {
+
+    // código que NO necesita protección
+
+
+    synchronized (this) {
+
+        // 🔐 SECCIÓN CRÍTICA
+        contador++;
+
+    }
+
+
+    // código que NO necesita protección
+}
+
+
+Deadlock --> Es cuando dos hilos se quedan esperando para siempre el uno al otro.
+Imagina:
+	Hilo 1 → tiene A 🔒 → quiere B 🔒
+	Hilo 2 → tiene B 🔒 → quiere A 🔒
+Entonces:
+	Hilo 1: "Espero a que me den B..."
+	Hilo 2: "Espero a que me den A..."
+Y así ninguno puede continuar
+Esto se soluciona con un orden global de adquisición de bloqueos:
+TODOS:
+A → B
+O TODOS:
+B → A
+Es decir, que respeten el mismo orden
+
+21/09/2026
+Usar synchronized() cuando tienes un acceso de muchos hilos a un dato compartido
+	-AtomicInterger
+	-AtomicFloat
+Todos los atomic tienen sincronización dentro.
+Por lo cual, con el Atomic ya no es necesario el uso de synchronized :(

@@ -1,0 +1,90 @@
+15/09/26
+Navegación en Android Studio
+Vamos a usar Empty Activity(Compose) y Empty Views Activity(MDC Android-XML), aunque este segundo está ciertamente obsoleto.
+
+En el manifest hay que definirlo todo, si no tira algo porque se ha olvidado meterlo en el manifest no da ningún error.
+
+En kotlin no existen los nulos; para que algo lo sea, hay que poner ?
+Por ejemplo: (savedInstanceState: Bundle?)
+
+Se utiliza lambda, y no hace falta poner los returns.
+
+El XML de la pantalla está en layout; el que más se usa es constraint layout, que se basa en enganchar unas cosas con otras. Tienes que tener como mínimo 2 enganches para que no de error (horizontal y vertical).
+
+En la carpeta values hay constantes.
+
+En Gradle Scripts vemos la configuración y las librerías del proyecto.
+
+
+16/09/2026
+Meter librerías nuevas de Maven: (Ejemplo: Coil)
+	-Las buscas en el repositorio de Maven
+	-Las añades en el POM
+	-Actualizas Maven
+	-<scope> ver dónde va la librería
+	
+En Gradle:
+	-Igual, en dependencies (build.gradle.kts)
+	-Sincronizas en el icono de Gradle (derecha)
+	
+Devices(parte superior a la derecha) --> Add Device, y tienes todos los tipos, resolución, API, etc
+	
+Consola:
+	- Icono del gatito, logcat
+	- Para ver tus errores, buscas en la lupita --> package:mine
+	
+Regla de oro --> NO SE PONEN TAMAÑOS FIJOS (%). Para que sea resposive en cualquier pantalla
+Web para interfaces --> m3.material.io
+Para diseños --> Figma
+
+21/09/2026
+Ruta de los temas --> res > values > themes
+
+Values:
+	- Themes > Themes
+	- Dimens
+	- Colors
+	- Strings 
+	
+En un XML, NO SE USAN constantes
+
+Material m3 Design --> Material theme builder para que elijas un color y te diga la gama y cómo usarlos
+
+Exportar tema en XML > Te descarga un zip > Lo descomprimes > Lo copias en res 
+
+Tamaños de densidad de puntos --> dp
+Tamaños de fuentes --> sp
+
+SIEMPRE hay que asegurarse de cambiar los elementos en las 2 vistas (landscape y portrait)
+
+Las Activity se están creando y muriendo todo el rato en Android (por ejemplo: cuando giras el móvil, o cuando están en el background)
+
+En kotlin --> val=constante (el static final de toda la vida)
+
+22/09/2026
+Todo lo de pantalla va en el onCreate
+
+data class --> getters, setters, constructores. ReadOnly: no se puede tocar (val).
+
+datos --> se suelen llamar Repository
+
+clases estáticas --> no existen en Kotlin; serían object 
+
+métodos --> fun
+
+mutableList() --> puede cambiar
+
+El ? significa que puede ser nulo, y todo lo que pueda serlo tiene que definirse como tal, y cada vez que lo trate, tengo que tratar qué pasa cuando no lo es
+
+Todos los var tienen que ser inicializados: cuando no se pueda, hay que poner lateinit var
+
+Activar viewBinding --> En gradle:
+			buildFeatures{
+			viewBinding=true
+			}
+Vamos a MainActivity:
+	1. private lateinit var binding: ActivityMainBinding
+	2. binding= ActivityMainBinding.inflate(layourInflater)
+	3. setContentView(binding.root)
+Lo que tengo que cargar en pantalla es esta clase, no el XML directamente
+			
