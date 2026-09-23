@@ -1,0 +1,225 @@
+23/09/2026
+Pools de hilos: ExecutorService
+ExecutorService --> en vez de crear y gestionar los Thread nosotros mismos, le damos tareas a un gestor y él se encarga de utilizar los hilos.
+Por ejemplo:
+	ExecutorService executor = Executors.newFixedThreadPool(3);
+Tenemos un pool (grupo) de 3 hilos.
+             ExecutorService
+                   │
+          ┌────────┼────────┐
+          ↓        ↓        ↓
+       Thread 1  Thread 2  Thread 3
+Y nosotros simplemente le damos trabajos:
+	executor.submit(tarea);
+El ExecutorService decide qué hilo disponible ejecuta cada tarea.
+
+Pool de hilos --> en lugar de hacer:
+			crear hilo
+			hacer trabajo
+			terminar hilo
+
+			crear hilo
+			hacer trabajo
+			terminar hilo
+
+			crear hilo
+			hacer trabajo
+			terminar hilo
+tenemos unos pocos hilos preparados:
+			Thread 1 ────────────────┐
+			Thread 2 ────────────────┤
+			Thread 3 ────────────────┤
+									 ↓
+								tareas
+							 ┌──┬──┬──┬──┬──┐
+							 │  │  │  │  │  │
+							 └──┴──┴──┴──┴──┘
+Cuando un hilo termina una tarea, puede coger otra, lo que evita estar creando continuamente nuevos hilos.
+
+newFixedThreadPool() --> "Quiero un pool con un máximo de X hilos".
+Si tenemos 5 tareas y solo hay 3 hilos:
+				Thread 1 → Tarea 1
+				Thread 2 → Tarea 2
+				Thread 3 → Tarea 3
+
+				Tarea 4 → espera
+				Tarea 5 → espera
+Cuando termina una:
+				Thread 2 → termina Tarea 2
+							  ↓
+						  Tarea 4
+						  
+newCachedThreadPool() --> "Crea hilos cuando haga falta y reutiliza los hilos que ya existen cuando sea posible".
+Por ejemplo:
+	Tarea 1 → Thread 1
+	Tarea 2 → Thread 2
+	Tarea 3 → Thread 3
+Si esos hilos quedan disponibles, pueden reutilizarse para nuevas tareas.
+Es más flexible que Fixed pero también hay que tener cuidado porque puede crear muchos hilos si le damos muchas tareas.
+
+newSingleThreadExecutor() --> solo hay un hilo ejecutando las tareas una detrás de otra. Es útil cuando quieres asegurarte de que las tareas se ejecutan secuencialmente.
+				Thread 1 → Tarea 1
+						   ↓
+						 Tarea 2
+						   ↓
+						 Tarea 3
+						   ↓
+						 Tarea 4
+
+Con el executor no necesitamos crear los hilos: el pool se encarga.
+
+Runnable vs Callable<T>
+Una tarea Runnable hace algo, pero no devuelve un resultado.
+Por ejemplo:
+Runnable tarea = () -> {
+    System.out.println("Descargando archivo...");
+};
+Callable es parecido a Runnable pero sí devuelve un resultado.
+Por ejemplo:
+Callable<Integer> tarea = () -> {
+    return 10 + 20;
+};
+La <T> es porque utiliza geéricos (Integer, String, Double..).
+Por ejemplo:
+Callable<String> tarea = () -> {
+    return "Hola";
+};
+
+¿Dónde recibo el resultado? --> Future <T>, que representa "el resultado que voy a recibir cuando termine la tarea"-
+Por ejemplo:
+Callable<Integer> tarea = () -> {
+    return 10 + 20;
+};
+
+Future<Integer> resultado = executor.submit(tarea);
+Es como si te dieran un ticket:
+					🎟️ Future<Integer>
+						   ↓
+					"Tu resultado estará aquí cuando termine"
+					
+get() --> para obtener el resultado. 
+Por ejemplo:
+Integer numero = resultado.get();
+
+System.out.println(numero);
+get() puede esperar. Si la tarea todavía no ha terminado, significa: "espero hasta que la tarea termine y pueda darme el resultado".
+Por eso:
+					Callable
+					   ↓
+					trabajando...
+					   ↓
+					Future
+					   ↓
+					get()
+					   ↓
+					⏳ espera si hace falta
+					   ↓
+					resultado	
+
+shutdown() --> "no voy a enviar más tareas, pero termina las que ya están pendientes"
+					Tarea 1 → ejecutándose
+					Tarea 2 → esperando
+					Tarea 3 → esperando
+
+					shutdown()
+						↓
+
+					❌ No acepto nuevas tareas
+
+					Pero:
+
+					Tarea 1 → termina
+					Tarea 2 → termina
+					Tarea 3 → termina
+
+							↓
+						ExecutorService
+						   TERMINA			
+
+shutdownNow() --> "deja de aceptar trabajo y trata de detener cuanto antes las tareas que están ejecutándose".
+Puede:
+	- devolver tareas que estaban pendientes
+	- intentar interrumpir los hilos que están trabajando
+Pero no significa que los mate mágicamente. La interrupción es coperativa, como vimos con interrupt().
+						   
+
+Ejemplo completo:
+ExecutorService executor =
+        Executors.newFixedThreadPool(3);
+
+Callable<Integer> tarea = () -> {
+    return 10 + 20;
+};
+
+Future<Integer> resultado =
+        executor.submit(tarea);
+
+System.out.println(resultado.get());
+
+executor.shutdown();
+
+La secuencia es:
+					1. Creo pool
+						   ↓
+					2. Creo Callable
+						   ↓
+					3. submit()
+						   ↓
+					4. Se ejecuta la tarea
+						   ↓
+					5. Obtengo Future
+						   ↓
+					6. get()
+						   ↓
+					7. recibo 30
+						   ↓
+					8. shutdown()			
+
+awaitTermination() --> después del shutdown, para decir "vale, has recibido la orden de cerrar. Ahora quier esperar hasta que realmente hayas terminado".
+Para eso:
+	executor.awaitTermination(5, TimeUnit.SECONDS);
+"Espera como máximo 5 segundos a que el executor termine".
+Por ejemplo:
+executor.shutdown();
+
+if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+    System.out.println("Executor terminado");
+}
+
+
+Resumen:
+             ExecutorService
+                   │
+          ┌────────┼─────────┐
+          ↓        ↓         ↓
+        Fixed    Cached    Single
+          │
+          ↓
+       submit()
+          │
+       ┌──┴───┐
+       ↓      ↓
+   Runnable Callable
+     │          │
+     ↓          ↓
+  no devuelve  devuelve
+  resultado    resultado
+                  │
+                  ↓
+               Future<T>
+                  │
+                  ↓
+                get()
+                  │
+                  ↓
+              resultado
+Y al terminar:
+			shutdown()
+				↓
+			deja de aceptar tareas
+				↓
+			termina las pendientes
+				↓
+			awaitTermination()
+				↓
+			esperamos a que termine

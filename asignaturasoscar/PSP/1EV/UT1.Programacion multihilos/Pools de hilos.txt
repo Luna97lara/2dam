@@ -1,5 +1,0 @@
-21/09/2026
-Pools de hilos: ExecutorService
-Executor.submit --> para meter hilos
-.shutdown() --> matar el hilo
-Hasta que no mato el ExecutorService, el programa no acaba.
