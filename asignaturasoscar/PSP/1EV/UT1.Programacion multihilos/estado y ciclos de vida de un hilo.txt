@@ -1,0 +1,82 @@
+23/09/2026
+Estado y ciclo de vida de un hilo
+Estados --> un hilo puede pasar por diferentes estados durante su vida: 
+				NEW
+				 ↓
+				RUNNABLE
+				 ↓
+				TIMED_WAITING / BLOCKED / WAITING
+				 ↓
+				RUNNABLE
+				 ↓
+				TERMINATED
+
+NEW --> el hilo ha sido creado, pero todavía no ha sido iniciado
+Thread hilo = new Thread(() -> {
+    System.out.println("Hola");
+});
+
+RUNNABLE --> está preparado para ejecutarse/ejecutándose
+Cuando hacemos hilo.start(); el hilo pasa a RUNNABLE
+Java no sabe separar en RUNNING y READY, así que si ves: hilo.getState() y devuelve RUNNABLE no significa necesariamente qe estér ejecutando una instrucción justo en ese instante.
+
+BLOCKED --> está esperando conseguir un bloqueo
+Cuando un hilo intenta entrar en una sección synchronized pero otro tiene el bloqueo
+					Hilo 1 → 🔒 tiene recurso
+
+					Hilo 2 → quiere recurso
+							  ↓
+						   BLOCKED
+
+WAITING --> está esperando indefinidamente a que ocurra algo
+Parecido a TIMED_WAITING pero aquí sin tiempo determinado.
+Por ejemplo: hilo.join(); sin límite de tiempo puede hacere que el hilo que llama a join() quede esperando
+
+TIMED_WAITING --> está esperando durante un tiempo determinado
+Cuando hacemos Thread.sleep(3000); porque está esperando una cantidad de tiempo concreta
+
+
+TERMINATED --> ha terminado
+Cuando run() termina.
+Thread hilo = new Thread(() -> {
+    System.out.println("Hola");
+});
+Después de ejecutar Hola, el hilo terminaNo podrá volver a arrancarse con start().
+
+getState() --> para saber en qué estado está un hilo
+
+sleep() --> para pausar el hilo temporalmente
+
+join() --> si tenemos hilo.join(); significa que el hilo que está ejecutando el join() espera a que hilo termine.
+Por ejemplo:
+						MAIN
+						 │
+						 ├── start hilo
+						 │
+						 │        HILO
+						 │         ↓
+						 │      trabajando
+						 │         ↓
+						 │      termina
+						 │
+						 └── join()
+							   ↓
+						   MAIN espera
+Cuando el hilo termina:
+	hilo --> TERMINATED
+	main --> continúa
+	
+interrupt() --> es como decirle al hilo "sería conveniente que terminaras"
+El propio hilo tiene que comprobar esa interrupción y decidir cómo terminar; por eso hablamos de interrupción cooperativa.
+Por ejemplo:
+	while (!Thread.currentThread().isInterrupted()) {
+    // seguir trabajando
+}
+Mientras no esté interrumpido:
+	isInterrupted() → false
+continúa.
+Cuando desde otro hilo hacemos:
+	hilo.interrupt();
+pasa a:
+	isInterrupted() → true
+y el while termina.
