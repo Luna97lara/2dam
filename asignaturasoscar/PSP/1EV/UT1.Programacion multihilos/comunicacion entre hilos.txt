@@ -1,0 +1,132 @@
+23/09/2026
+Comunicación entre hilos: wait()/notify()
+Imagina dos hilos:
+			👩 Hilo productor
+					↓
+				produce algo
+					↓
+			📦 recurso compartido
+					↑
+					↓
+			👨 Hilo consumidor
+El consumidor quiere coger algo del recurso, pero resulta que está vacío. Entonces no tiene sentido que haga:
+				¿Hay algo?
+				No.
+				¿Hay algo?
+				No.
+				¿Hay algo?
+				No.
+				¿Hay algo?
+				No.
+				...
+En su lugar, puede decir --> "No hay nada. Me voy a esperar hasta que alguien me avise" --> wait()
+Cuando el productor mete algo --> "Ya hay algo! Puedes continuar!" --> notify()
+
+wait() --> el hilo se pone a esperar, pero además libera el bloqueo del objeto.
+				Hilo consumidor
+					  ↓
+				🔒 tiene el monitor
+					  ↓
+					wait()
+					  ↓
+				🔓 libera el monitor
+					  ↓
+					😴 espera
+					
+notify() --> despierta a un hilo que estaba esperando en ese monitor. Ese hilo tendrá que volver a conseguir el bloqueo antes de continuar.
+				CONSUMIDOR
+				   ↓
+				no hay productos
+				   ↓
+				 wait()
+				   ↓
+				 😴 esperando
+
+
+				PRODUCTOR
+				   ↓
+				produce producto
+				   ↓
+				 notify()
+				   ↓
+				📢 "¡Ya puedes volver a comprobar!"
+				
+Tienen que estar dentro de synchronized, porque trabajan con el monitor del objeto: synchronized te permite entrar a él.
+synchronized (objeto) {
+    objeto.wait();
+}
+
+¿Por qué while y no if?
+Imagina:
+if (hayProducto == false) {
+    wait();
+}
+Podríamos pensar: "si hay producto, espero".
+Pero cuando el hilo despierta, no podemos asumir que la condición sigue siendo válida.
+Por eso hacemos:
+while (!hayProducto) {
+    wait();
+}
+				Es decir:
+				¿Hay producto?
+					 ↓
+					NO
+					 ↓
+				   wait()
+					 ↓
+				  me despiertan
+					 ↓
+				¿Hay producto?
+					 ↓
+				   COMPROBAR OTRA VEZ
+				   
+Productor-consumidor --> tenemos:
+				👩‍🏭 PRODUCTOR       
+					  ↓
+				   produce
+					  ↓
+				   📦📦📦
+				   
+
+                    📦📦📦
+					   ↓
+					consume
+					   ↓
+				👨‍💻 CONSUMIDOR		
+Ambos comparten un recurso. Por ejemplo, una cola: 
+							  📦
+				PRODUCTOR → [ COLA ] → CONSUMIDOR	
+El productor mete cosas:
+						📦 → [📦]
+						📦 → [📦📦]
+						📦 → [📦📦📦]	
+El consumidor las saca:
+						[📦📦📦] → 📦
+						[📦📦]   → 📦	
+						
+¿Qué pasa si la cola está vacía? --> El consumidor hace:
+synchronized (cola) {
+
+    while (cola.isEmpty()) {
+        cola.wait();
+    }
+
+    // coger producto
+}
+La idea:
+						¿cola vacía?
+							 ↓
+							SÍ
+							 ↓
+						   wait()
+							 ↓
+							😴				
+Mientras tanto, el productor puede trabajar:
+synchronized (cola) {
+
+    cola.add(producto);
+
+    cola.notify();
+}		
+"Hay un producto nuevo, puedes volver a comprobar".					
+						
