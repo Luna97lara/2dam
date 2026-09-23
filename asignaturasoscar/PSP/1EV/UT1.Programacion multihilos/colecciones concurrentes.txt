@@ -1,0 +1,121 @@
+23/09/2026
+Colecciones concurrentes
+¿Cómo hacemos que varios hilos puedan trabajar con una colección compartida sin tener que preocuparnos de toda la sincronización?
+
+Queue -> simplemente una cola, regida por el FIFO.
+Por ejemplo:
+		Queue<String> cola = new LinkedList<>();
+
+		cola.add("A");
+		cola.add("B");
+		cola.add("C");
+
+Tenemos:
+		[A] [B] [C]
+		 ↑
+		 primero que saldrá
+Si hacemos:
+	cola.poll();
+sale A.
+
+BlockingQueue --> puede hacer que un hilo espere automáticamente cuando no puede terminar.
+Por ejemplo:
+	BlockingQueue<String> cola = new ArrayBlockingQueue<>(3);
+Tenemos una cola con capacidad para 3 elementos:
+		┌───────────────┐
+		│ A │ B │ C │   │
+		└───────────────┘
+			  capacidad 3
+Si está llena y otro hilo intenta meter algo con put():
+	cola.put("D");
+el hilo se queda esperando; no tenemos que programar nosotros:
+while (cola.estaLlena()) {
+    esperar...
+}
+		 
+put() y take()
+put() --> "quiero meter este elemento en la cola".
+take() --> "dame el siguiente elemento de la cola".
+Si hay elementos:
+		[A] [B] [C]
+
+		take()
+		 ↓
+
+		[B] [C]
+devuelve A y continúa.
+		Si no hay:
+		[   ]
+
+		take()
+		 ↓
+		 ⏸️ ESPERA
+el hilo se queda bloqueado hasta que otro hilo meta algo.
+Por ejemplo:
+		Consumidor                 Productor
+
+		take()
+		  ↓
+		ESPERA ⏸️
+
+								   put("Hola")
+									  ↓
+								   [Hola]
+
+									  ↓
+								 consumidor
+								 continúa
+Es el patrón productor-consumidor que vimos con wait() y notify(), pero sin tener que controlar manualmente todo.
+
+ArrayBlockingQueue vs LinkedBlockingQueue
+ArrayBlockingQueue --> tiene una capacidad fija.
+Por ejemplo:
+	new ArrayBlockingQueue<>(3);
+significa:
+		[   ][   ][   ]
+		 ← capacidad 3 →
+Si está llena, put() espera.
+LinkedBlockingQueue --> está basada internamente en una estructura enlazada. Puede tener una capacidad muy grande si no establecemos una.
+
+ConcurrentHashMap
+Un map guarda parejas CLAVE → VALOR. 
+Por ejemplo:
+Map<Integer, String> alumnos = new HashMap<>();
+
+alumnos.put(1, "Luna");
+alumnos.put(2, "Sofi");
+alumnos.put(3, "Marcella");
+Tenemos:
+		1 → Luna
+		2 → Sofi
+		3 → Marcella
+ConcurrentHashMap --> cuando varios hilos acceden/modifican el mapa al mismo tiempo.
+Por ejemplo:
+		ConcurrentHashMap<Integer, String> mapa =
+				new ConcurrentHashMap<>();
+y varios hilos podrían hacer:
+	mapa.put(1, "Luna");
+o:
+	mapa.get(1);
+sin que tengamos que poner nosotros un synchronized alrededor de cada operación básica.
+
+Mapa mental
+                 COLECCIONES CONCURRENTES
+                          │
+             ┌────────────┴────────────┐
+             │                         │
+      BlockingQueue             ConcurrentHashMap
+             │                         │
+       ┌─────┴─────┐              mapa seguro
+       │           │              entre hilos
+     put()       take()
+       │           │
+    llena →      vacía →
+    espera       espera
+       │
+       │
+ ┌─────┴─────────────┐
+ │                   │
+ArrayBlockingQueue   LinkedBlockingQueue
+ │                   │
+capacidad fija       enlazada
