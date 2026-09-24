@@ -88,3 +88,22 @@ Vamos a MainActivity:
 	3. setContentView(binding.root)
 Lo que tengo que cargar en pantalla es esta clase, no el XML directamente
 			
+?: operador Elvis --> null?: haz esto
+
+Aplicaciones por capas --> Mínimo 3:
+	- UI
+	- Servicio --> El corazón de la aplicación: donde están todos los métodos
+	- Datos --> SQL, URL...
+	
+Clean architecture --> Servicio se convierte en Domain
+
+Estructura:
+	- DATA
+	- DOMAIN
+		-model
+		- usecases
+	-UI
+		- MainActivity
+		- DetalleActivity
+		
+Pantalla --> Intent
