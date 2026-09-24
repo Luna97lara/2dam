@@ -8,12 +8,210 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Examen de Android"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+    <TextView
+        android:id="@+id/datosAlumno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Datos del Alumno"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp" />
+    <TextView
+        android:id="@+id/seleccionaRespuesta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="2. Selecciona la respuesta correcta"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/cajaEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <TextView
+        android:id="@+id/pregunta1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="¿Qué componente se utiliza para crear diseños flexibles?"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/radioRespuestas"
+        app:layout_constraintTop_toTopOf="@+id/radioRespuestas"
+        app:layout_constraintEnd_toStartOf="@+id/radioRespuestas"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/seleccionaTodas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3. Selecciona todas las que apliquen"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/seleccionaRespuesta"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="175dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:id="@+id/pregunta2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Cuáles son los componentes de la arquitectura Android?"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/seleccionaTodas"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/preguntaDesarrollo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4. Pregunta de desarrollo"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/seleccionaTodas"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="100dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cajaNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre completo"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
+        app:layout_constraintStart_toEndOf="@id/datosAlumno"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cajaEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Correo Electrónico"
+        app:layout_constraintTop_toBottomOf="@id/cajaNombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioRespuestas"
+        android:checkedButton="@+id/enabled_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/seleccionaRespuesta"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp">
+
+        <RadioButton
+            android:id="@+id/enabled_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:text="LinearLayout"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:enabled="true"
+            android:text="ConstraintLayout"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:enabled="true"
+            android:text="FrameLayout"/>
+    </RadioGroup>
+
+
+    <LinearLayout
+        android:id="@+id/checkbox_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp">
+
+        <CheckBox
+            android:id="@+id/cb1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Activity"
+            app:layout_constraintTop_toBottomOf="@+id/pregunta2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <CheckBox
+            android:id="@+id/cb2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="ViewModel"
+            app:layout_constraintTop_toBottomOf="@+id/pregunta2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <CheckBox
+            android:id="@+id/cb3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="JavaScript"
+            app:layout_constraintTop_toBottomOf="@+id/pregunta2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <CheckBox
+            android:id="@+id/cb4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Repository"
+            app:layout_constraintTop_toBottomOf="@id/titulo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </LinearLayout>
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
