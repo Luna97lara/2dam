@@ -3,4 +3,23 @@
     <string name="label" />
     <string name="app_name">Examen</string>
     <string name="radiobutton_text">LinearLayout</string>
+    <string name="examen_de_android">Examen de Android</string>
+    <string name="datos_alumno">1. Datos del Alumno</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="selecciona_respuesta">2. Selecciona la respuesta correcta</string>
+    <string name="pregunta1">¿Qué componente se utiliza para crear diseños flexibles?</string>
+    <string name="linearlayout">LinearLayout</string>
+    <string name="constraintlayout">ConstraintLayout</string>
+    <string name="framelayout">FrameLayout</string>
+    <string name="selecciona_todas">3. Selecciona todas las que apliquen</string>
+    <string name="pregunta2">¿Cuáles son los componentes de la arquitectura Android?</string>
+    <string name="activity">Activity</string>
+    <string name="viewmodel">ViewModel</string>
+    <string name="javascript">JavaScript</string>
+    <string name="repository">Repository</string>
+    <string name="pregunta_desarrollo">4. Pregunta de desarrollo</string>
+    <string name="caja_desarrollo">Explica qué es Dependency Injection</string>
+    <string name="puntos">Pts</string>
+    <string name="enviar">Envíar Examen</string>
 </resources>
