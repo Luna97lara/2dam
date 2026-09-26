@@ -22,4 +22,5 @@
     <string name="caja_desarrollo">Explica qué es Dependency Injection</string>
     <string name="puntos">Pts</string>
     <string name="enviar">Envíar Examen</string>
+    <string name="timer">10 : 00</string>
 </resources>
