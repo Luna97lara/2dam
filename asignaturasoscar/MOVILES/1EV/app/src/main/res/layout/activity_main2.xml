@@ -391,8 +391,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_inferior"
         app:layout_constraintEnd_toStartOf="@id/guideline_izquierda"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda2"
-        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.{Small}.Square" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules" />
 
     <Button
         android:id="@+id/btnCompartir"
@@ -405,8 +404,7 @@
         app:backgroundTint="#0000FF"
         app:layout_constraintEnd_toEndOf="@id/guideline_derecha2"
         app:layout_constraintStart_toStartOf="@id/guideline_derecha"
-        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"
-        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.{Small}.Square"/>
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"/>
 
 
 
