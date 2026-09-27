@@ -23,4 +23,15 @@
     <string name="puntos">Pts</string>
     <string name="enviar">Envíar Examen</string>
     <string name="timer">10 : 00</string>
+    <string name="one">+1</string>
+    <string name="two">+2</string>
+    <string name="three">+3</string>
+    <string name="equipo1">Equipo 1</string>
+    <string name="equipo2">Equipo 2</string>
+    <string name="first">1.º</string>
+    <string name="score1">34</string>
+    <string name="score2">18</string>
+    <string name="faltas">Faltas</string>
+    <string name="x">X</string>
+    <string name="plus">+</string>
 </resources>

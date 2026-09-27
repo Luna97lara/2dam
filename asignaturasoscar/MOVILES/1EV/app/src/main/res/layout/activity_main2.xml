@@ -31,12 +31,27 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.15" />
 
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_izquierda3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_derecha2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_derecha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_superior"
@@ -71,73 +86,332 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.63" />
+        app:layout_constraintGuide_percent="0.60" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_mitadsuperior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.38" />
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_meridional"
+        android:id="@+id/guideline_meridionalsuperior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.46" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_meridionalinferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.53" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_botonesazules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.93" />
+        app:layout_constraintGuide_percent="0.94" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_faltas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.83" />
+        app:layout_constraintGuide_percent="0.85" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPlay"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_marcadorfaltas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon="@drawable/baseline_play_circle_24"
-        app:iconSize="40dp"
-        app:backgroundTint="#000000"
-        app:iconTint="#DC0000"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.89" />
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:scaleType="fitStart"
+        android:src="@drawable/baseline_play_circle_24"
+        app:tint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/guideline_play"
-        app:layout_constraintEnd_toEndOf="@id/guideline_izquierda2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_superior" />
 
     <TextView
         android:id="@+id/tvTeam1Score"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/digital"
         android:text="@string/timer"
         android:textColor="#FF002D"
-        android:textSize="54sp"
+        android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@id/guideline_play"
-        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"
-        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
         app:layout_constraintTop_toBottomOf="@id/guideline_superior" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.º"
+        android:text="@string/first"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guideline_derecha2"
         app:layout_constraintTop_toBottomOf="@id/guideline_superior"
         />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo1"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt1"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/equipo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/equipo1"
+        android:textStyle="bold"
+        android:textSize="31sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo1"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+
+    <TextView
+        android:id="@+id/Team1Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/score1"
+        android:textColor="#00FF00"
+        android:textSize="110sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintTop_toBottomOf="@+id/equipo1" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/digital"
+    android:text="@string/x"
+    android:textStyle="bold"
+    android:textColor="@color/white"
+    android:textAlignment="gravity"
+    android:textSize="50sp"
+    app:layout_constraintTop_toBottomOf="@id/guideline_meridionalsuperior"
+    app:layout_constraintBottom_toTopOf="@id/guideline_meridionalinferior"
+    app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+    app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+
+    <TextView
+        android:id="@+id/equipo2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/equipo2"
+        android:textStyle="bold"
+        android:textSize="31sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo2"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+
+    <TextView
+        android:id="@+id/Team2Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/score2"
+        android:textColor="#00FF00"
+        android:textSize="120sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintTop_toBottomOf="@+id/equipo2" />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt4"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt5"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/faltas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/faltas"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_faltas"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/plus"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_marcadorfaltas"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        />
+
+    <TextView
+        android:id="@+id/marcadorfaltas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="0 x 0"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:textColor="#FFFF00"
+        app:layout_constraintTop_toBottomOf="@id/faltas"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/plus"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_marcadorfaltas"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
+        app:layout_constraintStart_toStartOf="@id/guideline_derecha"
+        />
+
+    <Button
+        android:id="@+id/btnEditar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:text="EDITAR"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#0000FF"
+        app:layout_constraintBottom_toTopOf="@id/guideline_inferior"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.{Small}.Square" />
+
+    <Button
+        android:id="@+id/btnCompartir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="COMPARTIR"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#0000FF"
+        app:layout_constraintEnd_toEndOf="@id/guideline_derecha2"
+        app:layout_constraintStart_toStartOf="@id/guideline_derecha"
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"
+        app:materialSizeOverlay="@style/SizeOverlay.Material3Expressive.Button.{Small}.Square"/>
+
+
+
+
+
 
 
 
