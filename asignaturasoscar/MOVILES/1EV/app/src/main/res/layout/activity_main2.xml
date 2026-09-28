@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.13" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_derecha2"
@@ -51,7 +51,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.76" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_derecha4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_superior"
@@ -65,35 +72,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.98" />
+        app:layout_constraintGuide_percent="0.99" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_equipo1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_equipo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.60" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_mitadsuperior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="0.35" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -101,13 +108,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.38" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_meridionalinferior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_percent="0.47" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -115,21 +123,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.94" />
+        app:layout_constraintGuide_percent="0.86" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_faltas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.75" />
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_marcadorfaltas"
+        android:id="@+id/guideline_inferior2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.89" />
+        app:layout_constraintGuide_percent="0.8" />
+
 
     <ImageButton
         android:id="@+id/btnPlay"
@@ -137,8 +147,7 @@
         android:layout_height="0dp"
         android:background="@android:color/black"
         android:scaleType="fitStart"
-        android:src="@drawable/baseline_play_circle_24"
-        app:tint="@color/white"
+        android:src="@drawable/baseline_play_circle_outline_24"
         app:layout_constraintBottom_toTopOf="@id/guideline_play"
         app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
         app:layout_constraintStart_toStartOf="parent"
@@ -337,16 +346,18 @@
     <Button
         style="?attr/materialIconButtonFilledStyle"
         android:id="@+id/bt8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="0dp"
         android:backgroundTint="@color/white"
         android:text="@string/plus"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_marcadorfaltas"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
         app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_izquierda"
         />
 
     <TextView
@@ -354,7 +365,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/digital"
-        android:text="0 x 0"
+        android:text="@string/_0_x_0"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="45sp"
@@ -366,16 +377,18 @@
     <Button
         style="?attr/materialIconButtonFilledStyle"
         android:id="@+id/bt9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="0dp"
         android:backgroundTint="@color/white"
         android:text="@string/plus"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_marcadorfaltas"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
         app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
         app:layout_constraintStart_toStartOf="@id/guideline_derecha"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_derecha3"
         />
 
     <Button
@@ -383,13 +396,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
-        android:text="EDITAR"
+        android:text="@string/editar"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:backgroundTint="#0000FF"
         app:layout_constraintBottom_toTopOf="@id/guideline_inferior"
-        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda2"
         app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules" />
 
@@ -397,12 +409,13 @@
         android:id="@+id/btnCompartir"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="COMPARTIR"
+        android:text="@string/compartir"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:backgroundTint="#0000FF"
-        app:layout_constraintEnd_toEndOf="@id/guideline_derecha2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_derecha4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_inferior"
         app:layout_constraintStart_toStartOf="@id/guideline_derecha"
         app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"/>
 

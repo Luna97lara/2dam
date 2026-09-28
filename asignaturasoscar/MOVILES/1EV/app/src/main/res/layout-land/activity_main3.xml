@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:textColor="?attr/colorOnSurface"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalsuperior0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02"/>
+
+ <androidx.constraintlayout.widget.Guideline
+     android:id="@+id/horizontalsuperior1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     app:layout_constraintGuide_percent="0.18"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalsuperior2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalbtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalbtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.53"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalbtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.67"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/horizontalbtn89"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       app:layout_constraintGuide_percent="0.92"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalinferior2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalinferior1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/horizontalinferior0"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       app:layout_constraintGuide_percent="0.95"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalizquierda1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalizquierda2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.14"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalizquierda3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.21"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/verticalizquierdabtn89"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:orientation="vertical"
+       app:layout_constraintGuide_percent="0.32"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalizquierda4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.38"/>
+
+   <androidx.constraintlayout.widget.Guideline
+       android:id="@+id/verticalderechabtn89"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:orientation="vertical"
+       app:layout_constraintGuide_percent="0.61"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalderecha5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalderecha4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalderecha3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.83"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalderecha2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalderecha1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97"/>
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:padding="0dp"
+        android:background="@android:color/black"
+        android:src="@drawable/baseline_play_circle_outline_24"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalsuperior0"
+        app:layout_constraintBottom_toTopOf="@id/horizontalsuperior1"
+        app:layout_constraintStart_toStartOf="@+id/verticalizquierda2"
+        app:layout_constraintEnd_toStartOf="@+id/verticalizquierda3"/>
+
+
+   <TextView
+       android:id="@+id/tvTeam1Score"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/digital"
+       android:text="@string/timer"
+       android:textColor="#FF002D"
+       android:textAlignment="center"
+       android:textSize="60sp"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda4"
+       app:layout_constraintTop_toBottomOf="@id/horizontalsuperior0" />
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/first"
+       android:textColor="@color/white"
+       android:textSize="28sp"
+       android:textStyle="bold"
+       app:layout_constraintEnd_toStartOf="@id/verticalderecha4"
+       app:layout_constraintBottom_toTopOf="@id/horizontalsuperior1"
+       />
+
+   <Button
+       android:id="@+id/btnEditar"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/editar"
+       android:textColor="@color/white"
+       android:textSize="16sp"
+       android:textStyle="bold"
+       app:backgroundTint="#0000FF"
+       app:layout_constraintBottom_toTopOf="@id/horizontalsuperior1"
+       app:layout_constraintStart_toStartOf="@id/verticalderecha3"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/horizontalsuperior2"
+
+        app:layout_constraintStart_toStartOf="@+id/verticalizquierda1"
+        />
+
+   <TextView
+       android:id="@+id/equipo1"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/equipo1"
+       android:textStyle="bold"
+       android:textSize="28sp"
+       android:textColor="@color/white"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda3"
+       app:layout_constraintTop_toBottomOf="@id/horizontalsuperior2"/>
+
+   <TextView
+       android:id="@+id/Team1Score"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/digital"
+       android:text="@string/score1"
+       android:textColor="#00FF00"
+       android:textSize="110sp"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda3"
+       app:layout_constraintTop_toBottomOf="@+id/equipo1"/>
+
+   <TextView
+       android:id="@+id/equipo2"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/equipo2"
+       android:textStyle="bold"
+       android:textSize="28sp"
+       android:textColor="@color/white"
+       app:layout_constraintEnd_toStartOf="@id/verticalderecha4"
+       app:layout_constraintTop_toBottomOf="@id/horizontalsuperior2"/>
+
+   <TextView
+       android:id="@+id/Team2Score"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/digital"
+       android:text="@string/score2"
+       android:textColor="#00FF00"
+       android:textSize="110sp"
+       app:layout_constraintEnd_toStartOf="@id/verticalderecha4"
+       app:layout_constraintTop_toBottomOf="@+id/equipo2"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt1"
+        app:layout_constraintStart_toStartOf="@+id/verticalizquierda1"
+        />
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/digital"
+       android:text="@string/x"
+       android:textStyle="bold"
+       android:textColor="@color/white"
+       android:textAlignment="center"
+       android:textSize="50sp"
+       app:layout_constraintBottom_toTopOf="@id/horizontalbtn2"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda4"
+       app:layout_constraintEnd_toStartOf="@id/verticalderecha5"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt2"
+        app:layout_constraintStart_toStartOf="@+id/verticalizquierda1"
+        />
+
+   <Button
+       android:id="@+id/btnCompartir"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/compartir"
+       android:textColor="@color/white"
+       android:textSize="13sp"
+       android:textStyle="bold"
+       app:backgroundTint="#0000FF"
+       app:layout_constraintTop_toBottomOf="@id/horizontalinferior1"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda1"
+       app:layout_constraintBottom_toTopOf="@id/horizontalinferior0"
+       app:layout_constraintEnd_toStartOf="@id/verticalizquierda3"/>
+
+   <TextView
+       android:id="@+id/faltas"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/faltas"
+       android:textStyle="bold"
+       android:textAlignment="center"
+       android:textSize="25sp"
+       android:textColor="@color/white"
+       app:layout_constraintTop_toBottomOf="@id/horizontalinferior2"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierda4"
+       app:layout_constraintEnd_toStartOf="@id/verticalderecha5" />
+
+   <Button
+       style="?attr/materialIconButtonFilledStyle"
+       android:id="@+id/bt8"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:padding="0dp"
+       android:backgroundTint="@color/white"
+       android:text="@string/plus"
+       android:textColor="@color/black"
+       android:textSize="20sp"
+       android:textStyle="bold"
+       app:layout_constraintStart_toStartOf="@id/verticalizquierdabtn89"
+       app:layout_constraintEnd_toStartOf="@id/verticalizquierda4"
+       app:layout_constraintTop_toBottomOf="@id/horizontalinferior1"
+       app:layout_constraintBottom_toTopOf="@+id/horizontalbtn89"
+       />
+
+   <TextView
+       android:id="@+id/marcadorfaltas"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/digital"
+       android:text="@string/_0_x_0"
+       android:textStyle="bold"
+       android:textAlignment="center"
+       android:textSize="42sp"
+       android:textColor="#FFFF00"
+       app:layout_constraintTop_toBottomOf="@id/faltas"
+       app:layout_constraintStart_toEndOf="@id/bt8"
+       app:layout_constraintEnd_toStartOf="@id/bt9"
+       />
+
+   <Button
+       style="?attr/materialIconButtonFilledStyle"
+       android:id="@+id/bt9"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:padding="0dp"
+       android:backgroundTint="@color/white"
+       android:text="@string/plus"
+       android:textColor="@color/black"
+       android:textSize="20sp"
+       android:textStyle="bold"
+       app:layout_constraintEnd_toStartOf="@id/verticalderechabtn89"
+       app:layout_constraintStart_toStartOf="@id/verticalderecha5"
+       app:layout_constraintTop_toBottomOf="@id/horizontalinferior1"
+       app:layout_constraintBottom_toTopOf="@+id/horizontalbtn89"
+       />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/horizontalsuperior2"
+
+        app:layout_constraintStart_toStartOf="@+id/verticalderecha2"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt4"
+        app:layout_constraintStart_toStartOf="@+id/verticalderecha2"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt5"
+        app:layout_constraintStart_toStartOf="@+id/verticalderecha2"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

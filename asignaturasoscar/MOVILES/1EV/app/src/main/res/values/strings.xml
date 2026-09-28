@@ -34,4 +34,7 @@
     <string name="faltas">Faltas</string>
     <string name="x">X</string>
     <string name="plus">+</string>
+    <string name="compartir">COMPARTIR</string>
+    <string name="editar">EDITAR</string>
+    <string name="_0_x_0">0 x 0</string>
 </resources>
