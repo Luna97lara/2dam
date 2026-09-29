@@ -84,7 +84,7 @@ Activar viewBinding --> En gradle:
 			}
 Vamos a MainActivity:
 	1. private lateinit var binding: ActivityMainBinding
-	2. binding= ActivityMainBinding.inflate(layourInflater)
+	2. binding= ActivityMainBinding.inflate(layourInflater).apply {}
 	3. setContentView(binding.root)
 Lo que tengo que cargar en pantalla es esta clase, no el XML directamente
 			
