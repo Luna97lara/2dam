@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95625343-b010-420f-869f-3be69faa63df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../estadosyciclodevidadeunhilo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../estadosyciclodevidadeunhilo/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ContadorThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Ejercicio2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../estadosyciclodevidadeunhilo/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../estadosyciclodevidadeunhilo/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../estadosyciclodevidadeunhilo/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/src/main/java/org/example/Contador.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/src/main/java/org/example/Contador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../condicionescarreraysynchronized/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/condicionescarreraysynchronized/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lockssemaforosyatomicos/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hilosjava2/lockssemaforosyatomicos/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/src/main/java/DescargaExtendsThreads.java" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/src/main/java/DescargaExtendsThreads.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/src/main/java/DescargaImplementsRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/src/main/java/DescargaImplementsRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../threadvsrunnable/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../threadvsrunnable/src/main/java/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../.." />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000000083005" />
+      <entry key="S10" value="1.0000029205517453" />
+      <entry key="S30" value="1.0260925268396466" />
+      <entry key="S60" value="1.4485067939477936" />
+      <entry key="M2" value="3.636680956015693" />
+      <entry key="M5" value="12.003403284047995" />
+      <entry key="M10" value="20.613045704386224" />
+      <entry key="M15" value="25.082276671834254" />
+      <entry key="M30" value="30.757242187965375" />
+      <entry key="H1" value="34.15587598490529" />
+      <entry key="H2" value="36.01848244673645" />
+      <entry key="H4" value="36.99387679180013" />
+      <entry key="D1" value="37.830134920386236" />
+      <entry key="W1" value="37.97567964142456" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.4635189380366357E-180" />
+      <entry key="S2" value="1.3595483993745721E-45" />
+      <entry key="S5" value="1.739681217394166E-18" />
+      <entry key="S10" value="2.3172375050763472E-9" />
+      <entry key="S30" value="0.0035590663341300397" />
+      <entry key="S60" value="0.13261322360734495" />
+      <entry key="M2" value="0.8718162448736992" />
+      <entry key="M5" value="3.350268454344401" />
+      <entry key="M10" value="5.833686911381023" />
+      <entry key="M15" value="7.139790378432237" />
+      <entry key="M30" value="8.820007497021987" />
+      <entry key="H1" value="9.838067485802137" />
+      <entry key="H2" value="10.399699591337216" />
+      <entry key="H4" value="10.69483576222113" />
+      <entry key="D1" value="10.948427000003056" />
+      <entry key="W1" value="10.992614773279154" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="3.0584010764961576E-17" />
+      <entry key="MS500" value="4.978504311514603E-4" />
+      <entry key="S2" value="0.1493739006070978" />
+      <entry key="S5" value="0.46742279583139706" />
+      <entry key="S10" value="0.6836857404505042" />
+      <entry key="S30" value="0.9093233279176148" />
+      <entry key="S60" value="1.5084036961115501" />
+      <entry key="M2" value="4.444162922984722" />
+      <entry key="M5" value="15.283443067516282" />
+      <entry key="M10" value="26.386736269012697" />
+      <entry key="M15" value="32.17308653891965" />
+      <entry key="M30" value="39.54691577649594" />
+      <entry key="H1" value="43.97699463861" />
+      <entry key="H2" value="46.40921481667756" />
+      <entry key="H4" value="47.68409930752872" />
+      <entry key="D1" value="48.77777446899792" />
+      <entry key="W1" value="48.96818145906203" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3K0nsIXphfbST3wXIG7K7Mcrnbc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ContadorThread.executor": "Run",
+    "Application.Ejercicio2.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/usuario/Desktop/Trabajos",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/usuario/Desktop/2DAM/2dam/asignaturasoscar/PSP/1EV/UT1.Programacion multihilos/hilosjava1/threadyrunnable/src/main/java/org/example/Main.java",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="95625343-b010-420f-869f-3be69faa63df" name="Changes" comment="" />
+      <created>1790703559885</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1790703559885</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
