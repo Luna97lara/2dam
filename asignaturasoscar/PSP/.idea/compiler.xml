@@ -6,10 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="psp" />
-        <module name="lockssemaforosyatomicos" />
-        <module name="condicionescarreraysynchronized" />
+        <module name="estadosyciclodevidadeunhilo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="condicionescarreraysynchronized" target="25" />
+      <module name="lockssemaforosyatomicos" target="25" />
+      <module name="psp" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
