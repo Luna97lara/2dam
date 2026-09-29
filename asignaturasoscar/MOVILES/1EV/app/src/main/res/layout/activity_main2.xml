@@ -11,14 +11,14 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_izquierda"
+        android:id="@+id/verticalizq0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_derecha"
+        android:id="@+id/verticaldch0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -40,7 +40,7 @@
         app:layout_constraintGuide_percent="0.24" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_derecha2"
+        android:id="@+id/verticaldch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -61,14 +61,14 @@
         app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_superior"
+        android:id="@+id/superior0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.01" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_inferior"
+        android:id="@+id/inferior0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -151,7 +151,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_play"
         app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_superior" />
+        app:layout_constraintTop_toBottomOf="@id/superior0" />
 
     <TextView
         android:id="@+id/tvTeam1Score"
@@ -164,7 +164,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_play"
         app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
-        app:layout_constraintTop_toBottomOf="@id/guideline_superior" />
+        app:layout_constraintTop_toBottomOf="@id/superior0" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -173,8 +173,8 @@
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guideline_derecha2"
-        app:layout_constraintTop_toBottomOf="@id/guideline_superior"
+        app:layout_constraintStart_toStartOf="@id/verticaldch1"
+        app:layout_constraintTop_toBottomOf="@id/superior0"
         />
 
     <Button
@@ -231,8 +231,8 @@
         android:textSize="31sp"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/guideline_equipo1"
-        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
-        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
 
     <TextView
         android:id="@+id/Team1Score"
@@ -257,8 +257,8 @@
     android:textSize="50sp"
     app:layout_constraintTop_toBottomOf="@id/guideline_meridionalsuperior"
     app:layout_constraintBottom_toTopOf="@id/guideline_meridionalinferior"
-    app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
-    app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+    app:layout_constraintStart_toStartOf="@id/verticalizq0"
+    app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
 
     <TextView
         android:id="@+id/equipo2"
@@ -269,8 +269,8 @@
         android:textSize="31sp"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/guideline_equipo2"
-        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
-        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
 
     <TextView
         android:id="@+id/Team2Score"
@@ -340,8 +340,8 @@
         android:textSize="25sp"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/guideline_faltas"
-        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
-        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
 
     <Button
         style="?attr/materialIconButtonFilledStyle"
@@ -357,7 +357,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
         app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_izquierda"
+        app:layout_constraintEnd_toStartOf="@+id/verticalizq0"
         />
 
     <TextView
@@ -371,8 +371,8 @@
         android:textSize="45sp"
         android:textColor="#FFFF00"
         app:layout_constraintTop_toBottomOf="@id/faltas"
-        app:layout_constraintStart_toStartOf="@id/guideline_izquierda"
-        app:layout_constraintEnd_toStartOf="@id/guideline_derecha"/>
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
 
     <Button
         style="?attr/materialIconButtonFilledStyle"
@@ -387,7 +387,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
         app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
-        app:layout_constraintStart_toStartOf="@id/guideline_derecha"
+        app:layout_constraintStart_toStartOf="@id/verticaldch0"
         app:layout_constraintEnd_toStartOf="@+id/guideline_derecha3"
         />
 
@@ -401,7 +401,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:backgroundTint="#0000FF"
-        app:layout_constraintBottom_toTopOf="@id/guideline_inferior"
+        app:layout_constraintBottom_toTopOf="@id/inferior0"
         app:layout_constraintStart_toStartOf="@id/guideline_izquierda2"
         app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules" />
 
@@ -415,8 +415,8 @@
         android:textStyle="bold"
         app:backgroundTint="#0000FF"
         app:layout_constraintEnd_toStartOf="@+id/guideline_derecha4"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_inferior"
-        app:layout_constraintStart_toStartOf="@id/guideline_derecha"
+        app:layout_constraintBottom_toTopOf="@+id/inferior0"
+        app:layout_constraintStart_toStartOf="@id/verticaldch0"
         app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"/>
 
 
