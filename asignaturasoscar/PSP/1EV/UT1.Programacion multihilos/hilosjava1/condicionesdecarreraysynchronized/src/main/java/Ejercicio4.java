@@ -13,5 +13,50 @@ public class Ejercicio4 {
 }
 
 void main() {
-    
+//    Thread bloqueador1 = new Thread(() -> {
+//        synchronized (Ejercicio4.recursoA){
+//            System.out.println("Hilo 1 bloquea A");
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        } synchronized (Ejercicio4.recursoB){
+//            System.out.println("Hilo 1 bloquea B");
+//        }
+//    });
+//
+//    Thread bloqueador2 = new Thread(() -> {
+//        synchronized (Ejercicio4.recursoB){
+//            System.out.println("Hilo 2 bloquea B");
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }  synchronized (Ejercicio4.recursoA){
+//            System.out.println("Hilo 2 bloquea A");
+//        }
+//    });
+//    bloqueador1.start();
+//    bloqueador2.start();
+
+    Runnable bloqueos = ()  -> {
+        synchronized (Ejercicio4.recursoA) {
+            System.out.println(Thread.currentThread().getName()+ " bloquea A");
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        } synchronized (Ejercicio4.recursoB) {
+            System.out.println(Thread.currentThread().getName()+ " bloquea B");
+        }
+    };
+
+    Thread bloqueador1 = new Thread(bloqueos, "bloqueador 1");
+    Thread bloqueador2 = new Thread(bloqueos, "bloqueador 2");
+    bloqueador1.start();
+    bloqueador2.start();
+
 }
