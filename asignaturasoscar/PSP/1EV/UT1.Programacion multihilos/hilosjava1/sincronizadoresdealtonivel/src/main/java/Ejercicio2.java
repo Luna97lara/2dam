@@ -9,5 +9,20 @@ public class Ejercicio2 {
 
     public static final CountDownLatch latch = new CountDownLatch(5);
 
+    void main() throws InterruptedException {
+        for (int i = 0; i < latch.getCount(); i++) {
+            int trabajador=i;
+            new Thread(()->{
+                IO.println("Hilo "+trabajador+" cargando...");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {}
+                IO.println("Hilo "+trabajador+" terminado");
+                latch.countDown();
+            }).start();
+        }
+        latch.await();
+        IO.println("Sistema listo");
+    }
 
 }
