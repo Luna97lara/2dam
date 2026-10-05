@@ -28,5 +28,4 @@ class MainViewModelFactory(private val damePresidenteUseCase: DamePresidenteUseC
         throw IllegalArgumentException("Unknown viewModel class")
     }
 
-
 }
