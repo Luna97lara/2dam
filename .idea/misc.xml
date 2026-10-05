@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/asignaturasoscar/PSP/1EV/UT1.Programacion multihilos/lockssemaforosyatomicos/pom.xml" />
+        <option value="$PROJECT_DIR$/asignaturasoscar/PSP/1EV/UT1.Programacion multihilos/hilosjava1/threadyrunnable/pom.xml" />
+        <option value="$PROJECT_DIR$/asignaturasoscar/PSP/1EV/UT1.Programacion multihilos/hilosjava2/sincronizaciondefases/pom.xml" />
       </list>
     </option>
   </component>

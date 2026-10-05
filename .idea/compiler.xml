@@ -6,8 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lockssemaforosyatomicos" />
+        <module name="threadyrunnable" />
+        <module name="sincronizaciondefases" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lockssemaforosyatomicos" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>
