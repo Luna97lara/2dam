@@ -1,0 +1,169 @@
+16/09/2026
+FUNDAMENTOS: THREAD Y RUNNABLE
+Para crear un hilo:
+	Thread thread = new Thread(){
+		public void run(){ //llamas al run
+			sout("dentro del hilo")
+		};
+		thread.start(); //arranca el hilo (está listo para ejecutarse)
+		Thread.sleep(milis:10); //duérmete 10 ms
+		sout("1");
+		sout("2");
+		sout("3");
+		
+		Imprimiría:
+		Dentro del hilo
+		1
+		2
+		3
+		
+		
+		thread.start(); //arranca el hilo (está listo para ejecutarse)
+		sout("1");
+		sout("2");
+		sout("3");
+		Thread.sleep(milis:10); //duérmete 10 ms
+		
+		Imprimiría:
+		1
+		2
+		3
+		Dentro del hilo
+		
+		Sin embargo, por un problema con el sout, si hiciéramos:
+		thread.start(); //arranca el hilo (está listo para ejecutarse)
+		sout("1");
+		sout("2");
+		Thread.sleep(milis:10); //duérmete 10 ms
+		sout("3");
+		Podría salir algo como:
+		1
+		Dentro del hilo
+		2
+		3
+		Ya que son tareas asíncronas
+
+Explicación de chatgpt:
+	Un hilo es básicamente un camino de ejecución.
+	Normalmente, el programa tiene un hilo principal llamado main, por lo que cuando haces: public static void main(String[] args) este código se está ejecutando en el hilo main
+	Si creamos otro hilo:
+	             PROGRAMA
+                    │
+             ┌──────┴──────┐
+             ↓             ↓
+           main          Thread-0
+	Ahora tenemos dos caminos que pueden ejecutarse de forma concurrente.
+	Normalmente, cuando haces un programa Java, las instrucciones van una detrás de otra:
+		System.out.println("1");
+		System.out.println("2");
+		System.out.println("3");
+	Saldría:
+		1
+		2
+		3
+	Porque el camino de java es: 
+		Hago el 1 → termino → hago el 2 → termino → hago el 3
+	Un hilo es como crear otro camino de ejecución dentro del programa:
+	
+		PROGRAMA PRINCIPAL
+			│
+			├── imprime 1
+			├── imprime 2
+			└── imprime 3
+
+		HILO
+			│
+			├── imprime A
+			├── imprime B
+			└── imprime C
+			
+	Y ambos pueden estar ejecutándose a la vez.
+	start()significa "Este hilo ya puede empezar a ejecutarse"; Java decidirá cuándo darle tiempo de CPU.
+	Por eso, por ejemplo puede ocurrir:
+		1
+		2
+		A
+		3
+		B
+		C
+		
+	run() y start()
+	Cuando creamos un hilo tenemos:
+	Thread thread = new Thread() {
+		public void run() {
+			System.out.println("Dentro del hilo");
+		}
+	};
+	Aquí estamos diciendo: "Cuando este hilo se ejecute, quiero que haga esto"
+	Es decir:
+	public void run() {
+		System.out.println("Dentro del hilo");
+	}
+	contiene lo que hará el hilo. Pero para ponerlo en marcha usamos start()
+	run()   → ¿Qué tiene que hacer el hilo?
+	start() → ¡Empieza el hilo!
+	
+	Thread.sleep()
+	Esto: Thread.sleep(1000) significa: "El hilo que está ejecutando esta instrucción se duerme durante 1000ms(1 segundo)
+	Por ejemplo:
+	System.out.println("Hola");
+
+	Thread.sleep(2000);
+
+	System.out.println("Adiós");
+	
+	Hola
+		↓
+	  ESPERA 2 segundos
+		↓
+	Adiós
+	
+	sleep() duerme al hilo que lo ejecuta, no necesariamente "el programa entero"
+	
+	1. Crear un hilo
+	Thread thread = new Thread() {
+		@Override
+		public void run() {
+			// lo que hará el hilo
+		}
+	};
+	
+	2. Arrancarlo
+	thread.start();
+	
+	3. run()=trabajo del hilo
+	public void run() {
+		// instrucciones
+	}
+	
+	4. sleep()=dormir el hilo
+	Thread.sleep(200);
+	
+	5. currentThread()=hilo que está ejecutándose
+	Thread.currentThread()
+	
+	6. getName()=nombre de ese hilo
+	Thread.currentThread().getName()
+	
+	Diferencia entre Thread y Runnable
+	Thread --> "Esta clase ES un hilo"
+	Runnable --> "Esta clase SABE QUÉ HACER cuando la ejecute un hilo"
+	Como metáfora podemos poner una cafetería: Runnable es la receta "Para hacer café pon agua, café y leche", mientras que Thread es el camarero que hace el café
+		Runnable → qué hay que hacer
+		Thread → quién lo ejecuta
+		
+	Thread 							Runnable
+	La clase hereda de Thread		La clase implementa Runabble
+	extends Thread					implements Runabble
+	Es un hilo						Representa el trabajo
+	objeto.start()					new Thread(objeto).start()
+	
+17/09/26
+Para tener datos en muchos hilos, hay que tener una variable estática (zona de memoria). run() no devuelve nada; para que run() devuelva algo, hay que dejar el resultado en esta zona de memoria.
+var es de Java9 y funciona solo para variables de métodos.
+NUNCA usar objetos estáticos. Puede acceder a ellos cualquiera y luego depurando tampoco puedes saber en qué falla.
+
+Usar synchronized() cuando tienes un acceso de muchos hilos a un dato compartido
+	-AtomicInterger
+	-AtomicFloat
+Todos los atomic tienen sincronización dentro

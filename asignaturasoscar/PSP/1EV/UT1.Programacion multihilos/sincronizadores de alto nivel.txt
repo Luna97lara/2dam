@@ -1,0 +1,175 @@
+29/09/2026
+Sincronizadores de alto nivel
+Su objetivo principal es coordinar hilos. No se centran tanto en proteger una variable como synchronized, sino en decir: "¿Cuándo puede continuar este hilo?
+
+CountDownLatch
+Imagina que estás esperando a que 3 personas hagan una tarea:
+			👩 Persona 1 → termina
+			👨 Persona 2 → termina
+			👩 Persona 3 → termina
+
+						 ↓
+					YA PUEDO SEGUIR
+CountDownLatch latch = new CountDownLatch(3);
+El 3 significa: "Estoy esperando 3 señales"
+Cuando uno de los hilos termina su trabajo:
+latch.countDown();
+El contador baja:
+3
+↓
+2
+Otro termina:
+latch.countDown();
+2
+↓
+1
+Otro:
+latch.countDown();
+1
+↓
+0
+Y cuando llega a 0, el hilo que estaba esperando puede continuar.
+
+latch.await(); --> cómo espera un hilo
+El hilo que ejecuta await() se queda esperando:
+                    
+					latch = 3
+
+                       ↓
+
+                    await()
+                       │
+                       ⏸️
+                       │
+              ┌────────┴────────┐
+              ↓                 ↓
+          hilo 1 termina     hilo 2 termina
+          countDown()        countDown()
+              ↓                 ↓
+              2                 1
+                       ↓
+                  hilo 3 termina
+                    countDown()
+                       ↓
+                       0
+                       ↓
+                    ▶️ CONTINÚA
+					
+Imagina 3 descargas:
+CountDownLatch latch = new CountDownLatch(3);
+Cada hilo hace su descarga:
+Runnable descarga = () -> {
+    System.out.println("Descargando...");
+
+    // trabajo...
+
+    latch.countDown();
+};
+Y main espera:
+latch.await();
+System.out.println("Todas las descargas han terminado");
+La idea sería:
+				DESCARGA 1 ────────┐
+									│ countDown()
+				DESCARGA 2 ────────┤
+									│ countDown()
+				DESCARGA 3 ────────┤
+									│ countDown()
+									↓
+								 latch = 0
+									↓
+							  MAIN CONTINÚA
+				
+CountDownLatch vs join()
+join() espera a que termine un hilo concreto. Por ejemplo:
+hilo1.join();
+hilo2.join();
+hilo3.join();
+Mientras que CountDownLatch permite esperar a que se produzca un número determinado de señales. Por ejemplo:
+CountDownLatch latch = new CountDownLatch(3);
+No necesitas que necesariamente sean esos 3 objetos Thread los que están esperando, sino que es una idea de: "Hasta que no ocurran estas 3 finalizaciones/señales, no continúo.
+countDown() NO espera.
+latch.countDown() --> "He terminado/registro una señal"
+latch.await() --> "Yo voy a esperar"
+¿Se puede reutilizar? --> NO, ya que no se reinicia.
+
+CyclicBarrier
+Imagina que tenemos 3 corredores:
+			🏃──────┐
+			🏃──────┤
+			🏃──────┘
+					↓
+				🛑 BARRERA
+Cada uno corre a su ritmo.
+El primero llega:
+				🏃
+				 ↓
+				🛑
+Pero no puede continuar.
+Espera a los demás.
+Llega el segundo:
+				🏃
+				 ↓
+				🛑 ← 🏃
+Todavía falta uno.
+Llega el tercero:
+				🏃
+				 ↓
+				🛑 ← 🏃
+					 🏃
+Ahora que están todos, la barrera se abre:
+				🏃 🏃 🏃
+				 ↓  ↓  ↓
+				CONTINÚAN
+¿Cómo se crea?
+Por ejemplo, para 3 hilos:
+	CyclicBarrier barrera = new CyclicBarrier(3);
+El 3 significa: "Necesito 3 participantes para superar esta barrera".
+El hilo hace:
+barrera.await();
+Cuando llega:
+		Hilo 1 → await() → espera
+		Hilo 2 → await() → espera
+		Hilo 3 → await() → ¡están todos!
+								 ↓
+							CONTINÚAN
+
+Diferencia entre  CountDownLatch y CyclicBarrier
+CountDownLatch --> "Espera a que terminen 3 cosas"
+			   tarea 1 ──┐
+			   tarea 2 ──┤
+			   tarea 3 ──┤
+						 ↓
+					  contador
+					 3 → 2 → 1 → 0
+							   ↓
+							CONTINÚA
+CyclicBarrier --> "Esperamos todos juntos aquí"
+				hilo 1 ──→ 🛑
+				hilo 2 ──→ 🛑
+				hilo 3 ──→ 🛑
+							 ↓
+					   ESTÁN TODOS
+							 ↓
+					   CONTINÚAN TODOS
+Además, CyclicBarrier se puede reutilizar.
+
+Ejemplo:
+Imagina un juego en el que 3 jugadores tienen que terminar una ronda:
+			Jugador 1 → termina ronda
+			Jugador 2 → termina ronda
+			Jugador 3 → termina ronda
+
+						 ↓
+
+				   TODOS TERMINARON
+
+						 ↓
+
+				   empieza siguiente ronda
+Podríamos usar:
+	CyclicBarrier barrera = new CyclicBarrier(3);
+Y cada jugador:
+	barrera.await();
+Cuando los tres llegan, empieza la siguiente fase.
+Y después pueden volver a usar la misma barrera.

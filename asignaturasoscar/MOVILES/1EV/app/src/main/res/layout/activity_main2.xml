@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:textColor="?attr/colorOnSurface"
+    tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalizq0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticaldch0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_izquierda2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.13" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_izquierda3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticaldch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_derecha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.76" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_derecha4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/superior0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/inferior0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_equipo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_equipo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_mitadsuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_meridionalsuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_meridionalinferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.47" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_botonesazules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_faltas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_inferior2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:scaleType="fitStart"
+        android:src="@drawable/baseline_play_circle_outline_24"
+        app:layout_constraintBottom_toTopOf="@id/guideline_play"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/superior0" />
+
+    <TextView
+        android:id="@+id/tvTeam1Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/timer"
+        android:textColor="#FF002D"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@id/guideline_play"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintTop_toBottomOf="@id/superior0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/verticaldch1"
+        app:layout_constraintTop_toBottomOf="@id/superior0"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo1"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt1"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/equipo1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/equipo1"
+        android:textStyle="bold"
+        android:textSize="31sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo1"
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
+
+    <TextView
+        android:id="@+id/Team1Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/score1"
+        android:textColor="#00FF00"
+        android:textSize="110sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintTop_toBottomOf="@+id/equipo1" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/digital"
+    android:text="@string/x"
+    android:textStyle="bold"
+    android:textColor="@color/white"
+    android:textAlignment="gravity"
+    android:textSize="50sp"
+    app:layout_constraintTop_toBottomOf="@id/guideline_meridionalsuperior"
+    app:layout_constraintBottom_toTopOf="@id/guideline_meridionalinferior"
+    app:layout_constraintStart_toStartOf="@id/verticalizq0"
+    app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
+
+    <TextView
+        android:id="@+id/equipo2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/equipo2"
+        android:textStyle="bold"
+        android:textSize="31sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo2"
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
+
+    <TextView
+        android:id="@+id/Team2Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/score2"
+        android:textColor="#00FF00"
+        android:textSize="120sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_derecha3"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintTop_toBottomOf="@+id/equipo2" />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/one"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/guideline_equipo2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/two"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt4"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/three"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/bt5"
+        app:layout_constraintEnd_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/faltas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/faltas"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/guideline_faltas"
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="0dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/plus"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda3"
+        app:layout_constraintEnd_toStartOf="@+id/verticalizq0"
+        />
+
+    <TextView
+        android:id="@+id/marcadorfaltas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/digital"
+        android:text="@string/_0_x_0"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="45sp"
+        android:textColor="#FFFF00"
+        app:layout_constraintTop_toBottomOf="@id/faltas"
+        app:layout_constraintStart_toStartOf="@id/verticalizq0"
+        app:layout_constraintEnd_toStartOf="@id/verticaldch0"/>
+
+    <Button
+        style="?attr/materialIconButtonFilledStyle"
+        android:id="@+id/bt9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="0dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/plus"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_inferior2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_botonesazules"
+        app:layout_constraintStart_toStartOf="@id/verticaldch0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_derecha3"
+        />
+
+    <Button
+        android:id="@+id/btnEditar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:text="@string/editar"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#0000FF"
+        app:layout_constraintBottom_toTopOf="@id/inferior0"
+        app:layout_constraintStart_toStartOf="@id/guideline_izquierda2"
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules" />
+
+    <Button
+        android:id="@+id/btnCompartir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/compartir"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#0000FF"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_derecha4"
+        app:layout_constraintBottom_toTopOf="@+id/inferior0"
+        app:layout_constraintStart_toStartOf="@id/verticaldch0"
+        app:layout_constraintTop_toBottomOf="@id/guideline_botonesazules"/>
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
