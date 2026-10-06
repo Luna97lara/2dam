@@ -44,5 +44,10 @@ class MainActivity : AppCompatActivity() {
         it?.error?.let { error -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show()}})
     }
 
+    private fun configRecycler() {
+        val adapter= PoliticoAdapter()
+        viewBinding.lista.adapter
+    }
+
 
 }

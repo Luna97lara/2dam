@@ -13,7 +13,6 @@ class MainViewModel(val damePresidenteUseCase: DamePresidenteUseCase) : ViewMode
 
     fun handleDamePresidente() : Unit {
         var presi = damePresidenteUseCase.damePresidente()
-
         _state.value = _state.value?.copy(presidente = presi.toString()) ?: MainState(presi.toString())
     }
 
