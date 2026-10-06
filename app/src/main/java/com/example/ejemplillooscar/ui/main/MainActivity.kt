@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun configRecycler() {
         val adapter= PoliticoAdapter()
-        viewBinding.lista.adapter
+        viewBinding.lista.adapter.toString()
     }
 
 
