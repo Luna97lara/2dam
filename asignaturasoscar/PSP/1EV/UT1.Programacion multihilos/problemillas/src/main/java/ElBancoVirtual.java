@@ -23,13 +23,15 @@ public class ElBancoVirtual {
         - Con volatile - Para demostrar que NO es suficiente
      */
 
-    private double saldo;
+    /*
+    Versión con synchronized:
+       private double saldo=10000;
 
     private int exito=0;
     private int fallo=0;
 
     public synchronized boolean retirar(double cantidad){
-        if(saldo>0){
+        if(saldo>=cantidad){
             saldo-=cantidad;
             return true;
         } else {
@@ -56,27 +58,32 @@ public class ElBancoVirtual {
     public static Thread[] clientes = new Thread[50];
 
     void main(){
-        IO.println("Saldo inicial: 10000.00€");
+        IO.println("Saldo inicial: "+saldo+"€");
         IO.println("50 clientes realizando 500 operaciones totales...");
         long tiempoInicial = System.currentTimeMillis();
-        ElBancoVirtual bancoVirtual = new ElBancoVirtual();
         for(int i=0;i<50;i++){
             clientes[i] = new Thread(() -> {
-                try {
-                    Thread.sleep(random.nextInt(1000,5000));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 for (int tarea = 0; tarea < 10; tarea++) {
-                    if (tarea%2==0){
-                        if(bancoVirtual.retirar(random.nextDouble(1, 100))){
-                            bancoVirtual.exito++;
+                    if (random.nextInt(100)<60){
+                        if(retirar(random.nextDouble(1, 100))){
+                            synchronized (this){
+                                exito++;
+                            }
                         }else{
-                            fallo++;
+                            synchronized (this){
+                                fallo++;
+                            }
                         }
                     } else {
-                        bancoVirtual.ingresar(random.nextDouble(1, 50));
-                        bancoVirtual.exito++;
+                        ingresar(random.nextDouble(1, 50));
+                        synchronized (this){
+                            exito++;
+                        }
+                    }
+                    try {
+                        Thread.sleep(random.nextInt(100,300));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             });
@@ -92,7 +99,97 @@ public class ElBancoVirtual {
         }
         long tiempoFinal = System.currentTimeMillis();
         long tiempoTotal = tiempoFinal - tiempoInicial;
-        double segundos = tiempoTotal % 1000.0;
+        double segundos = tiempoTotal / 1000.0;
+
+        IO.println("Saldo final: "+saldo+"€");
+        IO.println("Operaciones exitosas: "+exito);
+        IO.println("Operaciones fallidas: "+fallo);
+        IO.println("Tiempo total: "+segundos+" s");
+    }
+
+     */
+
+    private double saldo=10000;
+
+    private int exito=0;
+    private int fallo=0;
+
+    public boolean retirar(double cantidad){
+        lock.lock();
+        try {
+            if(saldo>=cantidad){
+                saldo-=cantidad;
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            lock.unlock();
+        }
+
+    }
+
+    public void ingresar(double cantidad){
+        saldo+=cantidad;
+    }
+
+    public double consultarSaldo(){
+        return saldo;
+    }
+
+    public List<String> obtenerHistorial(){
+        return null;
+    }
+
+    public static Random random = new Random();
+
+    public static ReentrantLock lock = new ReentrantLock();
+
+    public static Thread[] clientes = new Thread[50];
+
+    void main(){
+        IO.println("Saldo inicial: "+saldo+"€");
+        IO.println("50 clientes realizando 500 operaciones totales...");
+        long tiempoInicial = System.currentTimeMillis();
+        for(int i=0;i<50;i++){
+            clientes[i] = new Thread(() -> {
+                for (int tarea = 0; tarea < 10; tarea++) {
+                    if (random.nextInt(100)<60){
+                        if(retirar(random.nextDouble(1, 100))){
+                            synchronized (this){
+                                exito++;
+                            }
+                        }else{
+                            synchronized (this){
+                                fallo++;
+                            }
+                        }
+                    } else {
+                        ingresar(random.nextDouble(1, 50));
+                        synchronized (this){
+                            exito++;
+                        }
+                    }
+                    try {
+                        Thread.sleep(random.nextInt(100,300));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            clientes[i].start();
+        }
+        for (int i = 0; i < 50; i++) {
+            try {
+                clientes[i].join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        long tiempoFinal = System.currentTimeMillis();
+        long tiempoTotal = tiempoFinal - tiempoInicial;
+        double segundos = tiempoTotal / 1000.0;
 
         IO.println("Saldo final: "+saldo+"€");
         IO.println("Operaciones exitosas: "+exito);

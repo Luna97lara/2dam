@@ -94,6 +94,7 @@ public class ElContadorCompartido {
 
     }
      */
+    // Version con atomic:
     public static AtomicInteger contador= new  AtomicInteger(0);
     public void incrementarVisita(){
         contador.incrementAndGet();
