@@ -47,7 +47,7 @@ public class ElRestauranteConcurrente {
                             IO.println("Cocinando: " + plato);
                             Thread.sleep(plato.getTiempoMs());
                             int cocinados=pedidosCocinados.incrementAndGet();
-                            IO.println("Platos cocinados: "+pedidosCocinados.get());
+                            IO.println("Platos cocinados: "+cocinados);
                         }
 
                     }
