@@ -18,9 +18,9 @@ public class Ejercicio2 {
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     void main() throws InterruptedException, ExecutionException {
-        Future<Integer> future = executor.submit(() -> {
+        Future<String> future = executor.submit(() -> {
             Thread.sleep(5000);
-            return 1;
+            return "Holaaaaaaaa";
         });
         while(!future.isDone()){
             IO.println("Esperando...");
