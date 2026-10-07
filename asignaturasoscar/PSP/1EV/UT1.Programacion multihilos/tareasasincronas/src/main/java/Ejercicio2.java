@@ -9,7 +9,5 @@ public class Ejercicio2 {
 
     Ampliación
     Muestra también el nombre del hilo que ejecuta la tarea.
-
-
      */
 }
