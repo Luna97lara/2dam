@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">examenmvvmluna</string>
+    <string name="time">9:30</string>
+    <string name="taskmate">TaskMate</string>
+    <string name="Saludos">Hola, Ana</string>
+    <string name="tareas_pendientes">Hoy tienes 3 tareas pendientes</string>
+    <string name="todas">Todas</string>
+    <string name="pendientes">Pendientes</string>
+    <string name="completadas">Completadas</string>
+    <string name="estudiar_android_xml">Estudiar Android XML</string>
+    <string name="hoy_10_00">Hoy · 10:00</string>
+    <string name="hacer_ejercicio">Hacer ejercicio</string>
+    <string name="hoy_18_00">Hoy · 18:00</string>
+    <string name="leer_un_libro">Leer un libro</string>
+    <string name="ma_ana_09_00">Mañana · 09:00</string>
+    <string name="preparar_la_presentaci_n">Preparar la presentación</string>
+    <string name="ma_ana_12_00">Mañana · 12:00</string>
+    <string name="alta">Alta</string>
+    <string name="media">Media</string>
+    <string name="baja">Baja</string>
+    <string name="inicio">Inicio</string>
+    <string name="tareas">Tareas</string>
+    <string name="estadisticas">Estadísticas</string>
+    <string name="perfil">Perfil</string>
+</resources>
