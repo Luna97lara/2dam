@@ -1,4 +1,4 @@
-package com.example.ejemploxml
+package com.example.practicaexamen
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
