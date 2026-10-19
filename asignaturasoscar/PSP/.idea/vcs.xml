@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/1EV/UT1.Programacion multihilos/Hilos_PSP - Problema 1,2 de hilos/Hilos_PSP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/1EV/UT1.Programacion multihilos/Hilos_PSP- hilos 3,4/Hilos_PSP" vcs="Git" />
   </component>
 </project>
