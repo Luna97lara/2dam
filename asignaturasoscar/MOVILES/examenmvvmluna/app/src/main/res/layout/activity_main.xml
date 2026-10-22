@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.examenmvvmluna.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -208,7 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="@string/inicio"
-        android:textSize="10dp"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/horiz13"
         app:layout_constraintStart_toStartOf="@id/vert2"
@@ -216,7 +216,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textSize="10dp"
+        android:textSize="10sp"
         android:text="@string/tareas"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/horiz13"
