@@ -1,0 +1,11 @@
+el 4 sin blocking queue,
+
+puntos extra 3:
+
+elige 2 entre
+
+parking bien controlado, con blocking queue
+el 5
+el 6
+arreglar el resturante propuesto.
+Si esta bien todo no hay examen
