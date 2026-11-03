@@ -28,12 +28,19 @@ class MainViewModel : ViewModel() {
         _state.update { it.copy(direccion = direccion) }
 
     }
+
+    fun onClickButton(){
+        _state.update { it.copy(contador = it.contador+1) }
+    }
+
     private val _state = MutableStateFlow(
         MainState(
             nombre = "Daniel",
             apellidos = "Gómez Teruel",
             email = "danigt@nigg.com",
-            direccion = "Calle Gandhi, 71"
+            direccion = "Calle Gandhi, 71",
+            contador = 0,
+            textoContador = "Nº de envíos: "
         )
     )
 
