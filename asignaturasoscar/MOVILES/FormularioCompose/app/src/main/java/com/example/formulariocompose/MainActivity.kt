@@ -69,7 +69,8 @@ fun MainPantallaContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally
+                .padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row {
                 Column(modifier = Modifier.padding(innerPadding)) {
