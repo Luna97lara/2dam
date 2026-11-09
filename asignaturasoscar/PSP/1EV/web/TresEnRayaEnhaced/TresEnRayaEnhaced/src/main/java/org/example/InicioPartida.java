@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Partida;
+import model.Torneo;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
@@ -33,7 +34,14 @@ public class InicioPartida extends HttpServlet {
             return;
         }
 
-        req.getSession().setAttribute("partida", new Partida(jugador1, marca1, jugador2, marca2));
+        Torneo torneo;
+        if(req.getSession().getAttribute("torneo")==null) {
+            torneo= new Torneo();
+            req.getSession().setAttribute("torneo", torneo);
+        } else {
+            torneo= (Torneo) req.getSession().getAttribute("torneo");
+        }
+        torneo.addPartida(new Partida(jugador1, marca1, jugador2, marca2));
 
         var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
                 .buildExchange(req, resp);

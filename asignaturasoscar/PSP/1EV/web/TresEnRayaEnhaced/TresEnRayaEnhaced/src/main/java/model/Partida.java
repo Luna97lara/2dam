@@ -14,6 +14,10 @@ public class Partida {
 
     private String ganador;
 
+    private String [] tablero;
+
+    private boolean finPartida;
+
     public Partida(String jugador1, String marca1, String jugador2,  String marca2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
@@ -25,6 +29,8 @@ public class Partida {
             turno = jugador2;
         }
         movimientos = 0;
+        finPartida = false;
+        tablero = null;
     }
 
     public String getJugador1() {
@@ -83,4 +89,23 @@ public class Partida {
         this.ganador = ganador;
     }
 
+    public boolean isFinPartida() {
+        return finPartida;
+    }
+
+    public void setFinPartida(boolean finPartida) {
+        this.finPartida = finPartida;
+    }
+
+    public String[] getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(String[] tablero) {
+        this.tablero = tablero;
+    }
+
+    public void incrementMovimientos(){
+        movimientos++;
+    }
 }
