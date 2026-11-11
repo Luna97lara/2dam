@@ -14,65 +14,68 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/stats")
 public class Estadisticas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Torneo torneo = (Torneo) request.getSession().getAttribute("torneo");
 
-        if (torneo==null){
+        if (torneo == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST,
                     "No existe una partida creada");
             return;
         }
 
-        String jugador=request.getParameter("jugador");
+        String jugador = request.getParameter("jugador");
 
-        if(jugador==null){
+        if (jugador == null) {
             for (int i = 0; i < torneo.getPartidas().size(); i++) {
                 torneo.getPartidas().get(i);
-                response.getWriter().println("-----Partida "+i+"-----");
-                if(torneo.getPartidas().get(i).getGanador()==null){
-                    response.getWriter().println("Ganador: empate entre "+torneo.getPartidas().get(i).getJugador1()+" y "+torneo.getPartidas().get(i).getJugador2());
-                }else {
+                response.getWriter().println("-----Partida " + i + "-----");
+                if (torneo.getPartidas().get(i).getGanador() == null) {
+                    response.getWriter().println("Ganador: empate entre " + torneo.getPartidas().get(i).getJugador1() + " y " + torneo.getPartidas().get(i).getJugador2());
+                } else {
                     response.getWriter().println("Ganador: " + torneo.getPartidas().get(i).getGanador());
                     response.getWriter().println("Perdedor: " + torneo.getPartidas().get(i).getTurno());
                 }
-                response.getWriter().println("Nº de movimientos: "+torneo.getPartidas().get(i).getMovimientos());
-                response.getWriter().println("Marca de "+torneo.getPartidas().get(i).getJugador1()+": "+torneo.getPartidas().get(i).getMarca1());
-                response.getWriter().println("Marca de "+torneo.getPartidas().get(i).getJugador2()+": "+torneo.getPartidas().get(i).getMarca2());
+                response.getWriter().println("Nº de movimientos: " + torneo.getPartidas().get(i).getMovimientos());
+                response.getWriter().println("Marca de " + torneo.getPartidas().get(i).getJugador1() + ": " + torneo.getPartidas().get(i).getMarca1());
+                response.getWriter().println("Marca de " + torneo.getPartidas().get(i).getJugador2() + ": " + torneo.getPartidas().get(i).getMarca2());
                 response.getWriter().println("\n");
             }
         } else {
-            boolean existeJugador=false;
-            for (int i = 0; i < torneo.getPartidas().size(); i++) {
-                if(jugador.equals(torneo.getPartidas().get(i).getJugador1())){
-                    response.getWriter().println("Ganador: " + torneo.getPartidas().get(i).getGanador());
-                    response.getWriter().println("Perdedor: " + torneo.getPartidas().get(i).getTurno());
-                    response.getWriter().println("Nº de movimientos: "+torneo.getPartidas().get(i).getMovimientos());
-                    response.getWriter().println("Marca de "+torneo.getPartidas().get(i).getJugador1()+": "+torneo.getPartidas().get(i).getMarca1());
-
-                    existeJugador=true;
-                } else if (jugador.equals(torneo.getPartidas().get(i).getJugador2())){
-                    response.getWriter().println("Ganador: " + torneo.getPartidas().get(i).getGanador());
-                    response.getWriter().println("Perdedor: " + torneo.getPartidas().get(i).getTurno());
-                    response.getWriter().println("Nº de movimientos: "+torneo.getPartidas().get(i).getMovimientos());
-                    response.getWriter().println("Marca de "+torneo.getPartidas().get(i).getJugador2()+": "+torneo.getPartidas().get(i).getMarca2());
-
-                    existeJugador=true;
+            boolean existeJugador = false;
+            List<Partida> partidas = torneo.getPartidasByPlayer(jugador);
+            if (partidas.size() > 0) {
+                existeJugador = true;
+                for (int i = 0; i < partidas.size(); i++) {
+                    response.getWriter().println("-----Partida " + i + "-----");
+                    if (partidas.get(i).getGanador() == null) {
+                        response.getWriter().println("Empate entre " + partidas.get(i).getJugador1() + " y " + partidas.get(i).getJugador2());
+                    } else {
+                        response.getWriter().println("Victoria de " + partidas.get(i).getGanador() + " contra " + partidas.get(i).getTurno());
+                    }
+                    if (partidas.get(i).getJugador1().equals(jugador)) {
+                        response.getWriter().println("Símbolo: " + partidas.get(i).getMarca1());
+                    } else {
+                        response.getWriter().println("Símbolo: " + partidas.get(i).getMarca2());
+                    }
+                    response.getWriter().println("Nº de movimientos: " + partidas.get(i).getMovimientos());
+                    response.getWriter().println("\n");
                 }
-            }
 
-            if(!existeJugador){
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                if (!existeJugador) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
                             "No existen datos de este jugador");
-                return;
+                    return;
+                }
+
+
             }
 
 
         }
-
-
     }
 
 }

@@ -31,6 +31,7 @@ public class Partida {
         movimientos = 0;
         finPartida = false;
         tablero = null;
+        ganador = null;
     }
 
     public String getJugador1() {

@@ -114,12 +114,17 @@ public class Juego extends HttpServlet {
         String gana=" ";
         String pierde=" ";
         String movimientos=" ";
+        String empate=" ";
 
         if(partida.isFinPartida()) {
             stats="---------Estadísticas------------";
-            gana="Ha ganado "+partida.getGanador();
-            pierde="Ha perdido "+partida.getTurno();
-            movimientos="Nº de movimientos: "+partida.getMovimientos();
+            if(partida.getGanador()==null){
+                empate="Empate";
+            } else {
+                gana = "Ha ganado " + partida.getGanador();
+                pierde = "Ha perdido " + partida.getTurno();
+            }
+            movimientos = "Nº de movimientos: " + partida.getMovimientos();
         }
 
         var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
@@ -130,6 +135,7 @@ public class Juego extends HttpServlet {
         ctx.setVariable("fila3", fila3);
         ctx.setVariable("casillascompletadas", casillascompletadas);
         ctx.setVariable("stats", stats);
+        ctx.setVariable("empate", empate);
         ctx.setVariable("ganador", gana);
         ctx.setVariable("perdedor", pierde);
         ctx.setVariable("movimientos", movimientos);
