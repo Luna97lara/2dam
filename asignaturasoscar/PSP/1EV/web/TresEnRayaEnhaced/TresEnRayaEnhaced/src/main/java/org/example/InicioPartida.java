@@ -35,13 +35,18 @@ public class InicioPartida extends HttpServlet {
         }
 
         Torneo torneo;
+
         if(req.getSession().getAttribute("torneo")==null) {
             torneo= new Torneo();
             req.getSession().setAttribute("torneo", torneo);
         } else {
             torneo= (Torneo) req.getSession().getAttribute("torneo");
         }
+
         torneo.addPartida(new Partida(jugador1, marca1, jugador2, marca2));
+
+        torneo.addJugador(jugador1);
+        torneo.addJugador(jugador2);
 
         var webExchange = JakartaServletWebApplication.buildApplication(getServletContext())
                 .buildExchange(req, resp);

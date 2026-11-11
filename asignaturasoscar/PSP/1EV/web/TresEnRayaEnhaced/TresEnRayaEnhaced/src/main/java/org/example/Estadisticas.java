@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import javassist.tools.web.BadHttpRequest;
 import model.Partida;
 import model.Torneo;
 import org.thymeleaf.TemplateEngine;
@@ -29,9 +30,34 @@ public class Estadisticas extends HttpServlet {
 
         String jugador = request.getParameter("jugador");
 
+        String partida = request.getParameter("partida");
+
+
+
+        if (partida!=null){
+            try {
+
+                int numeroPartida = Integer.parseInt(partida);
+                if (numeroPartida >= 0 && numeroPartida < torneo.getPartidas().size()) {
+                    Partida p = torneo.getPartidas().get(numeroPartida);
+                    for (String movimiento : p.getHistorial()) {
+                        response.getWriter().println(movimiento);
+                    }
+                    return;
+                } else {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                            "No existe una partida creada");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                        "Debe ingresar un numero de partida. El formato son dígitos");
+                return;
+            }
+        }
+
         if (jugador == null) {
             for (int i = 0; i < torneo.getPartidas().size(); i++) {
-                torneo.getPartidas().get(i);
                 response.getWriter().println("-----Partida " + i + "-----");
                 if (torneo.getPartidas().get(i).getGanador() == null) {
                     response.getWriter().println("Ganador: empate entre " + torneo.getPartidas().get(i).getJugador1() + " y " + torneo.getPartidas().get(i).getJugador2());
@@ -64,17 +90,11 @@ public class Estadisticas extends HttpServlet {
                     response.getWriter().println("Nº de movimientos: " + partidas.get(i).getMovimientos());
                     response.getWriter().println("\n");
                 }
-
-                if (!existeJugador) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                            "No existen datos de este jugador");
-                    return;
-                }
-
-
             }
-
-
+            if (!existeJugador) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                        "No existen datos de este jugador");
+            }
         }
     }
 
