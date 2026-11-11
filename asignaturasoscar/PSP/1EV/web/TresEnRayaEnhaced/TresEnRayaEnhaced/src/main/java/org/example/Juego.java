@@ -64,6 +64,13 @@ public class Juego extends HttpServlet {
             partida.setTurno(partida.getJugador1());
         }
 
+        if (turnoActual.equalsIgnoreCase(partida.getJugador1())){
+            partida.addMovimiento(turnoActual + " coloca "+ partida.getMarca1()+ " en la posición "+coordenada);
+        } else {
+            partida.addMovimiento(turnoActual + " coloca "+ partida.getMarca2()+ " en la posición "+coordenada);
+
+        }
+
         String fila1 = tablero[0] + " " + tablero[1] + " " + tablero[2];
         String fila2 = tablero[3] + " " + tablero[4] + " " + tablero[5];
         String fila3 = tablero[6] + " " + tablero[7] + " " + tablero[8];

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Partida {
 
     private String jugador1;
@@ -18,6 +21,8 @@ public class Partida {
 
     private boolean finPartida;
 
+    private List<String> historial;
+
     public Partida(String jugador1, String marca1, String jugador2,  String marca2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
@@ -32,6 +37,7 @@ public class Partida {
         finPartida = false;
         tablero = null;
         ganador = null;
+        historial=new ArrayList<>();
     }
 
     public String getJugador1() {
@@ -106,7 +112,16 @@ public class Partida {
         this.tablero = tablero;
     }
 
+    public List<String> getHistorial() {
+        return historial;
+    }
+
     public void incrementMovimientos(){
         movimientos++;
     }
+
+    public void addMovimiento(String movimiento){
+        historial.add(movimiento);
+    }
+
 }
