@@ -15,5 +15,5 @@ public final class UrlConstants {
 
     // Nombres de plantillas
     public static final String TEMPLATE_NUMERITO = "numerito";
-
+    public static final String TEMPLATE_CAJA_FUERTE = "cajaFuerte";
 }

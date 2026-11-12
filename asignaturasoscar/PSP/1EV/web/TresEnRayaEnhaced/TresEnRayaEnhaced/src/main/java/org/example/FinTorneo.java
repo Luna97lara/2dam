@@ -22,6 +22,8 @@ public class FinTorneo extends HttpServlet {
             return;
         }
 
+
+
         Integer llamada = (Integer) req.getSession().getAttribute("llamada");
 
         if (llamada==null){

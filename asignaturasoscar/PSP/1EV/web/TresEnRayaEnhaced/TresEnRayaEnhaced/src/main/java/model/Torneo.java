@@ -12,7 +12,7 @@ public class Torneo {
     private List <String> jugadores;
 
     public Torneo() {
-        partidas = new ArrayList<Partida>();
+        partidas = new ArrayList<>();
         jugadores = new ArrayList<>();
     }
 
