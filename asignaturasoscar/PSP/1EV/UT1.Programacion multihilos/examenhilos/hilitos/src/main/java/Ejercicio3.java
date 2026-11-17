@@ -18,24 +18,26 @@
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Ejercicio3 {
 
     enum TipoPlato {
-        ENSALADA(2000), PASTA(3000), PIZZA(4000), CARNE(5000);
+        ENSALADA(2000, 850), PASTA(3000,1050), PIZZA(4000, 1000), CARNE(5000, 2000);
         final int tiempoMs;
-        TipoPlato(int tiempoMs) { this.tiempoMs = tiempoMs; }
-        static Ejercicio3.TipoPlato aleatorio(Random r) {
+        final int precioCentimos;
+        TipoPlato(int tiempoMs, int precioCentimos) {
+            this.tiempoMs = tiempoMs;
+            this.precioCentimos = precioCentimos;
+        }
+        static TipoPlato aleatorio(Random r) {
             return values()[r.nextInt(values().length)];
         }
     }
 
-    record Pedido(int cliente, Ejercicio3.TipoPlato plato, long horaCreacionMs) {}
+    record Pedido(int cliente, TipoPlato plato, long horaCreacionMs, BlockingQueue<Pedido>destino) {}
 
     // --- Constantes del enunciado ---
     static final int COCINEROS = 3;
@@ -44,42 +46,54 @@ public class Ejercicio3 {
     static final int CAPACIDAD_MESA = 10;
     static final long LLEGADA_CLIENTE_MS = 500;
     static final long TIEMPO_CAMARERO_MS = 1000;
+    static final int MESAS = 30;
 
     // --- Recursos compartidos ---
-    static final BlockingQueue<Ejercicio3.Pedido> mesa = new ArrayBlockingQueue<>(CAPACIDAD_MESA);
+    static final BlockingQueue<Pedido> colaCocina = new ArrayBlockingQueue<>(CAPACIDAD_MESA);
     static final CountDownLatch clientesAtendidos = new CountDownLatch(CLIENTES);
     // Cola intermedia clientes -> camareros (ilimitada: los clientes nunca se quedan sin atender)
     static final BlockingQueue<Pedido> colaClientes = new ArrayBlockingQueue<>(CLIENTES);
-
+    static final Semaphore mesas = new Semaphore(MESAS);
+    static final BlockingQueue<Pedido> platosListos = new ArrayBlockingQueue<>(CLIENTES);
+    static final CountDownLatch clientesFinalizados = new CountDownLatch(CLIENTES);
     // --- Estadisticas ---
     static final AtomicInteger platosServidos = new AtomicInteger();
     static final AtomicLong esperaTotalMs = new AtomicLong();
-    static final AtomicInteger mesaLlenaCount = new AtomicInteger();
+    static final AtomicInteger paseCocinaLlenoCount = new AtomicInteger();
     static final AtomicLong cocinerosEsperandoMs = new AtomicLong();
+    static final AtomicLong ventasTotales = new AtomicLong();
 
     static String ahora() {
         return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
+
+
     public static void main(String[] args) throws InterruptedException {
+
         System.out.println("=== RESTAURANTE CONCURRENTE ===");
         System.out.println("Iniciando servicio con " + COCINEROS + " cocineros y "
                 + CAMAREROS + " camareros...\n");
 
+        Thread[] cocineros = new Thread[COCINEROS];
+        Thread[] camareros = new Thread[CAMAREROS];
+
         // --- Cocineros (consumidores) ---
-        for (int i = 1; i <= COCINEROS; i++) {
-            final int id = i;
-            Thread.ofPlatform().name("cocinero-" + id).start(() -> {
+        for (int i = 0; i < COCINEROS; i++) {
+            final int id = i+1;
+            cocineros[i]=Thread.ofPlatform().name("cocinero-" + id).start(() -> {
                 try {
-                    while (true) {
+                    while (!Thread.currentThread().isInterrupted()) {
                         long t0 = System.currentTimeMillis();
-                        Pedido p = mesa.take(); // espera si no hay pedidos
+                        Pedido p = colaCocina.take(); // espera si no hay pedidos
                         cocinerosEsperandoMs.addAndGet(System.currentTimeMillis() - t0);
 
                         Thread.sleep(p.plato().tiempoMs); // cocina el plato
+                        platosListos.put(p); //cuando termina de cocinar el pedido pasa a la cola de platos listos
                         esperaTotalMs.addAndGet(System.currentTimeMillis() - p.horaCreacionMs());
                         platosServidos.incrementAndGet();
-                        clientesAtendidos.countDown();
+                        ventasTotales.addAndGet(p.plato().precioCentimos);
+
 
                         System.out.println("[" + ahora() + "] Cocinero-" + id + " termina "
                                 + p.plato() + " para Cliente-" + p.cliente());
@@ -91,19 +105,34 @@ public class Ejercicio3 {
         }
 
         // --- Camareros (productores) ---
-        for (int i = 1; i <= CAMAREROS; i++) {
-            final int id = i;
-            Thread.ofPlatform().name("camarero-" + id).start(() -> {
+        for (int i = 0; i < CAMAREROS; i++) {
+            final int id = i+1;
+            camareros[i]=Thread.ofPlatform().name("camarero-" + id).start(() -> {
                 try {
-                    while (true) {
-                        Pedido p = colaClientes.take(); // espera a que llegue un cliente
-                        Thread.sleep(TIEMPO_CAMARERO_MS); // toma el pedido
-                        System.out.println("[" + ahora() + "] Camarero-" + id
-                                + " toma pedido " + p.plato());
-                        if (mesa.remainingCapacity() == 0) {
-                            mesaLlenaCount.incrementAndGet();
+                    while (!Thread.currentThread().isInterrupted()) {
+                        Pedido p = platosListos.poll();
+                        if (p != null) {
+                            p.destino().put(p);
+                            System.out.println("[" + ahora() + "] Camarero-" + id
+                                    + " entrega " + p.plato() + " a Cliente-" + p.cliente());
+                        } else {
+                            p = colaClientes.poll(100, TimeUnit.MILLISECONDS);
+                            if (p != null) {
+                                Thread.sleep(TIEMPO_CAMARERO_MS); // toma el pedido
+                                System.out.println("[" + ahora() + "] Camarero-" + id
+                                        + " toma pedido " + p.plato());
+                                System.out.println("Capacidad libre en cocina: "
+                                        + colaCocina.remainingCapacity());
+                                if (colaCocina.remainingCapacity() == 0) {
+                                    paseCocinaLlenoCount.incrementAndGet();
+                                }
+                                colaCocina.put(p); // espera si la mesa esta llena
+                            }
+//                            } else {
+//                                System.out.println("[" + ahora() + "] Camarero-" + id
+//                                        + " está esperando tareas ");
+//                            }
                         }
-                        mesa.put(p); // espera si la mesa esta llena
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -115,11 +144,37 @@ public class Ejercicio3 {
         Thread generadorClientes = Thread.ofPlatform().name("puerta").start(() -> {
             for (int i = 1; i <= CLIENTES; i++) {
                 final int id = i;
-                TipoPlato plato = TipoPlato.aleatorio(new Random());
-                System.out.println("[" + ahora() + "] Cliente-" + String.format("%03d", id)
-                        + " pide " + plato);
+                Thread.ofVirtual().start(() -> {
+                    boolean tieneMesa=false;
+                    try {
+                        if(mesas.tryAcquire(5, TimeUnit.SECONDS)) {
+                            tieneMesa=true;
+                            BlockingQueue<Pedido> destino = new ArrayBlockingQueue<>(1);
+                            TipoPlato plato = TipoPlato.aleatorio(new Random());
+                            System.out.println("[" + ahora() + "] Cliente-" + String.format("%03d", id)
+                                    + " pide " + plato);
+                            colaClientes.put(new Pedido(id, plato, System.currentTimeMillis(), destino));
+                            Pedido platoRecibido = destino.take();
+                            System.out.println("[" + ahora() + "] Cliente-" + String.format("%03d", id)
+                                    + " recibe su " + platoRecibido.plato());
+                            Thread.sleep(3000);
+                            System.out.println("[" + ahora() + "] Cliente-" + String.format("%03d", id)
+                                    + " termina de comer y libera su mesa.");
+
+                        } else {
+                            System.out.println("[" + ahora() + "] Cliente-" + String.format("%03d", id)
+                                    + " se marcha: no hay mesas disponibles.");
+                        }
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    } finally {
+                        if(tieneMesa) {
+                            mesas.release();
+                        }
+                        clientesFinalizados.countDown();
+                    }
+                });
                 try {
-                    colaClientes.put(new Pedido(id, plato, System.currentTimeMillis()));
                     Thread.sleep(LLEGADA_CLIENTE_MS);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -127,20 +182,38 @@ public class Ejercicio3 {
             }
         });
 
-        clientesAtendidos.await(); // el restaurante no cierra hasta atender a los 100
-        generadorClientes.join();
+        generadorClientes.join(); //Espera a que el hilo que va creando clientes termine de generar los 100
+        clientesFinalizados.await(); //Espera a que los 100 clientes hayan terminado su recorrido
+
+        //Detener camareros y cocineros:
+        for(Thread camarero : camareros){
+            camarero.interrupt();
+        }
+
+        for(Thread cocinero : cocineros){
+            cocinero.interrupt();
+        }
+
+        //Esperar a que todos terminen
+        for(Thread camarero : camareros){
+            camarero.join();
+        }
+
+        for(Thread cocinero : cocineros){
+            cocinero.join();
+        }
 
         System.out.println("\n--- ESTADISTICAS FINALES ---");
         System.out.println("Clientes atendidos: " + CLIENTES + "/" + CLIENTES + " ✅");
         System.out.println("Platos servidos: " + platosServidos.get());
         System.out.println("Tiempo promedio de espera: "
                 + (esperaTotalMs.get() / 1000.0 / CLIENTES) + "s");
-        System.out.println("Mesa llena (veces): " + mesaLlenaCount.get());
+        System.out.println("Pase de cocina lleno (veces): " + paseCocinaLlenoCount.get());
         System.out.println("Cocineros esperando (tiempo acumulado): "
                 + (cocinerosEsperandoMs.get() / 1000) + "s total");
         System.out.println("Eficiencia: el sistema soporta " + CAMAREROS + " pedidos/s en entrada"
                 + " y " + COCINEROS + " platos en paralelo en cocina.");
-        System.exit(0); // cerrar los hilos camareros/cocineros (bucle infinito por disenyo)
+        System.out.println("Ganancias: " + ventasTotales.get() / 100.0 + " €");
     }
 
 }
