@@ -25,7 +25,7 @@ public class Ejercicio1 {
                                 System.out.println("Resultado: " + resultado)
                         );
 
-        tarea.join();
+        tarea.join();;
 
     }
 }
