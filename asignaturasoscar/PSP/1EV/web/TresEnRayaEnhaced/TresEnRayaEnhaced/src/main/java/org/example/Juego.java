@@ -27,11 +27,17 @@ public class Juego extends HttpServlet {
 
         if (torneo==null){
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                    "No existe una partida creada");
+                    "No existe un torneo creado");
             return;
         }
 
         Partida partida = torneo.getPartidas().getLast();
+
+        if (partida==null){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    "No existe una partida creada");
+            return;
+        }
 
         if (coordenada==null){
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST,

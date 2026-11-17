@@ -29,12 +29,19 @@ public class DropTorneo extends HttpServlet {
             return;
         }
 
-        boolean existeJugador = false;
-        for (int i = 0; i < torneo.getPartidas().size(); i++) {
-            if (torneo.getPartidas().get(i).getJugador1().equals(jugador) || torneo.getPartidas().get(i).getJugador2().equals(jugador)) {
-                existeJugador = true;
-            }
-        }
+
+        boolean existeJugador;
+//        for (int i = 0; i < torneo.getPartidas().size(); i++) {
+//            if (torneo.getPartidas().get(i).getJugador1().equals(jugador) || torneo.getPartidas().get(i).getJugador2().equals(jugador)) {
+//                existeJugador = true;
+//            }
+//        }
+
+        existeJugador = torneo.getPartidas().stream()
+                .anyMatch(partida ->
+                        partida.getJugador1().equals(jugador)
+                                || partida.getJugador2().equals(jugador)
+                );
 
         if (!existeJugador) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No existe un jugador con ese nombre");
