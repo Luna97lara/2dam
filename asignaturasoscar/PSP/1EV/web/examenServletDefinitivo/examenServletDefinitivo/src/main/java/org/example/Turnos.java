@@ -14,6 +14,17 @@ import java.io.IOException;
 public class Turnos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession(false) == null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No existe una sesión");
+            return;
+        }
+
+        Carrera carrera = (Carrera) req.getSession().getAttribute("carrera");
+
+        if (carrera == null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No existe una carrera");
+        }
+
 
 
     }

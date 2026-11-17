@@ -25,6 +25,8 @@ public class ConfigCarrera extends HttpServlet {
             return;
         }
 
-        req.getSession().setAttribute("longitud", longitud);
+        Carrera carrera = new Carrera();
+
+        req.getSession().setAttribute("carrera", carrera);
     }
 }

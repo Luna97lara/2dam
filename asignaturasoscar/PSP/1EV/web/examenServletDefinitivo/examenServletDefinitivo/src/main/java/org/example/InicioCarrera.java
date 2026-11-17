@@ -21,6 +21,13 @@ public class InicioCarrera extends HttpServlet {
             return;
         }
 
+        String contraseña=req.getParameter("password");
+
+        if (contraseña==null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Falta la contraseña");
+            return;
+        }
+
         resp.getWriter().println("Iniciando carrera");
         resp.getWriter().println("Participantes inscritos: " + carrera.getParticipantes().size());
 

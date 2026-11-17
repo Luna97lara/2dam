@@ -33,7 +33,7 @@ public class Inscripciones extends HttpServlet {
             return;
         }
 
-        Carrera carrera = new Carrera();
+        Carrera carrera = (Carrera)req.getSession().getAttribute("carrera");
 
         carrera.addParticipante(nombre);
 
