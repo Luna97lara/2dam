@@ -74,18 +74,7 @@ public class Estadisticas extends HttpServlet {
 //            }
 
             try {
-                PrintWriter out = response.getWriter();
 
-                torneo.getPartidas().stream().forEach(p -> {
-                    out.println("-----Partida-----");
-
-                    if (p.getGanador() == null) {
-                        out.println("Ganador: empate entre " + p.getJugador1()
-                                + " y " + p.getJugador2());
-                    } else {
-                        out.println("Ganador: " + p.getGanador());
-                        out.println("Perdedor: " + p.getTurno());
-                    }
 
                     out.println("Nº de movimientos: " + p.getMovimientos());
                     out.println("Marca de " + p.getJugador1() + ": " + p.getMarca1());
