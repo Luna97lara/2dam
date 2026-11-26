@@ -10,14 +10,14 @@ import java.util.List;
 @RequestMapping("/cozas")
 public class RestCosas {
 
-    @GetMapping("/{cosa}")
-    public Cosa damePath(@PathVariable String cosa) {
-        return new Cosa(cosa);
+    @GetMapping("/{id}/{cosa}")
+    public Cosa damePath(@PathVariable int id,@PathVariable String cosa) {
+        return new Cosa(id, cosa);
     }
 
     @GetMapping
     public List<Cosa> getTodasCosas() {
-        return List.of(new Cosa("nombre"));
+        return List.of(new Cosa(1, "holaaaaaaaaaa"));
     }
 
 }

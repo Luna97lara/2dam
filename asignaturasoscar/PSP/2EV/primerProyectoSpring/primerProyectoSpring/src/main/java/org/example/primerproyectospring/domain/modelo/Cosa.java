@@ -1,4 +1,3 @@
 package org.example.primerproyectospring.domain.modelo;
 
-public record Cosa(String cosa) {
-}
+public record Cosa(int id, String cosa){}
