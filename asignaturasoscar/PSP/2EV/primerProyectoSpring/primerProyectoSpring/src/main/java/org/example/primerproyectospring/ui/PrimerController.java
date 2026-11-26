@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/primero")
 public class PrimerController {
 
-    @RequestMapping("/{cosa}")
-    public String mostrarPagina(Model model, @PathVariable String cosa) {
+    @RequestMapping("/{id}/{cosa}")
+    public String mostrarPagina(Model model, @PathVariable int id, @PathVariable String cosa) {
+        model.addAttribute("id", id);
         model.addAttribute("titulo", cosa);
         return "primero";
     }
