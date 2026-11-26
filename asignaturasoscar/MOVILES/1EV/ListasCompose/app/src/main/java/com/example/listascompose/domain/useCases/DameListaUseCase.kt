@@ -1,7 +1,7 @@
 package com.example.listascompose.domain.useCases
 
-import com.example.listascompose.data.Alumnos
+import com.example.listascompose.data.Personas
 
 class DameListaUseCase {
-    fun dameLista() = Alumnos.dameLista()
+    fun dameLista() = Personas.dameLista()
 }

@@ -2,10 +2,10 @@ package com.example.listascompose.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.listascompose.domain.model.Alumno
-import com.example.listascompose.domain.useCases.AddAlumnoUseCase
+import com.example.listascompose.domain.model.Persona
+import com.example.listascompose.domain.useCases.AddLibroUseCase
 import com.example.listascompose.domain.useCases.DameListaUseCase
-import com.example.listascompose.domain.useCases.DeleteAlumnoUseCase
+import com.example.listascompose.domain.useCases.DeletePersonaUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,23 +13,23 @@ import kotlinx.coroutines.flow.update
 
 class MainViewModel(
     private val dameListaUseCase: DameListaUseCase,
-    private val addAlumnoUseCase: AddAlumnoUseCase,
-    private val deleteAlumnoUseCase: DeleteAlumnoUseCase
+    private val addLibroUseCase: AddLibroUseCase,
+    private val deletePersonaUseCase: DeletePersonaUseCase
 ) : ViewModel(
 
 ) {
     private val _state = MutableStateFlow(
         MainState(
-            alumno = Alumno("", "", "", "0", "", false, mutableListOf()),
-            alumnos = emptyList(),
-            alumnoSeleccionado = null,
+            persona = Persona("", true, listOf(), "0"),
+            personas = emptyList(),
+            personaSeleccionado = null,
             selected = false,
             error = null
         )
     )
 
-    fun onAlumnoChange(alumno: Alumno) {
-        _state.update { it.copy(alumno = alumno) }
+    fun onPersonaChange(persona: Persona) {
+        _state.update { it.copy(persona = persona) }
     }
 
     val state: StateFlow<MainState> = _state.asStateFlow()
@@ -39,45 +39,45 @@ class MainViewModel(
     }
 
     fun onCargarLista() {
-        _state.update { it.copy(alumnos = dameListaUseCase.dameLista()) }
+        _state.update { it.copy(personas = dameListaUseCase.dameLista()) }
     }
 
-    fun onSeleccionarAlumno(alumno: Alumno) {
+    fun onSeleccionarPersona(persona: Persona) {
         _state.update { currentState ->
-            val nuevoSeleccionado = if (currentState.alumnoSeleccionado == alumno) null else alumno
-            currentState.copy(alumnoSeleccionado = nuevoSeleccionado)
+            val nuevoSeleccionado = if (currentState.personaSeleccionado == persona) null else persona
+            currentState.copy(personaSeleccionado = nuevoSeleccionado)
         }
     }
 
-    fun onDeleteAlumnoSeleccionado() {
-        val alumnoDelete = _state.value.alumnoSeleccionado ?: return
-        deleteAlumnoUseCase.deleteAlumno(alumnoDelete)
+    fun onDeletePersonaSeleccionada() {
+        val alumnoDelete = _state.value.personaSeleccionado ?: return
+        deletePersonaUseCase.deleteAlumno(alumnoDelete)
         _state.update {
             it.copy(
-                alumnos = dameListaUseCase.dameLista(),
-                alumnoSeleccionado = null
+                personas = dameListaUseCase.dameLista(),
+                personaSeleccionado = null
             )
         }
     }
 
-    fun onAddAlumno() {
-        val currentAlumno = _state.value.alumno
+    fun onAddLibro() {
+        val currentAlumno = _state.value.persona
         if (currentAlumno.nombre.isBlank()
-            || currentAlumno.apellidos.isBlank()
-            || currentAlumno.curso.isBlank()
-            || currentAlumno.edad.isBlank()
-            || currentAlumno.correo.isBlank()
+//            || currentAlumno.apellidos.isBlank()
+//            || currentAlumno.curso.isBlank()
+//            || currentAlumno.edad.isBlank()
+//            || currentAlumno.correo.isBlank()
         ) {
             _state.update {
                 it.copy(error = "Faltan datos por introducir")
             }
         } else {
             try {
-                addAlumnoUseCase.addAlumno(currentAlumno)
+                addLibroUseCase.addLibro(currentAlumno)
                 _state.update {
                     it.copy(
-                        alumnos = dameListaUseCase.dameLista(),
-                        alumno = Alumno("", "", "", "0", "", false,mutableListOf()),
+                        personas = dameListaUseCase.dameLista(),
+                        persona = Persona("", true, mutableListOf(), "0"),
                         error = null
                     )
                 }
@@ -98,15 +98,15 @@ class MainViewModel(
 
 class MainViewModelFactory(
     private val dameListaUseCase: DameListaUseCase,
-    private val addAlumnoUseCase: AddAlumnoUseCase,
-    private val deleteAlumnoUseCase: DeleteAlumnoUseCase
+    private val addLibroUseCase: AddLibroUseCase,
+    private val deletePersonaUseCase: DeletePersonaUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST") return MainViewModel(
                 dameListaUseCase,
-                addAlumnoUseCase,
-                deleteAlumnoUseCase,
+                addLibroUseCase,
+                deletePersonaUseCase,
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

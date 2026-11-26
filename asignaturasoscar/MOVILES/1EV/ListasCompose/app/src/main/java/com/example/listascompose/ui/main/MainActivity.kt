@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,17 +14,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -43,7 +39,6 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,17 +46,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.listascompose.R
 import com.example.listascompose.di.AppModule
-import com.example.listascompose.domain.model.Alumno
-import com.example.listascompose.domain.model.Boletin
+import com.example.listascompose.domain.model.Persona
+import com.example.listascompose.domain.model.Libro
 import com.example.listascompose.ui.theme.AppTheme
-import com.example.listascompose.ui.theme.barbieDark
-import com.example.listascompose.ui.theme.barbieLight
-import com.example.listascompose.ui.theme.onBarbieDark
 import com.example.listascompose.ui.theme.onBarbieDarkMediumContrast
-import com.example.listascompose.ui.theme.onBarbieLight
 import com.example.listascompose.ui.theme.onPinkyPromiseContainerLight
+import com.example.listascompose.ui.theme.pinkyPromiseContainerDark
 import com.example.listascompose.ui.theme.pinkyPromiseContainerLight
-import com.example.listascompose.ui.theme.pinkyPromiseLightMediumContrast
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -82,8 +73,8 @@ fun MainPantalla(
     viewModel: MainViewModel = viewModel(
         factory = MainViewModelFactory(
             AppModule.dameListaUseCase,
-            AppModule.addAlumnoUseCase,
-            AppModule.deleteAlumnoUseCase
+            AppModule.addLibroUseCase,
+            AppModule.deletePersonaUseCase
         )
     )
 ) {
@@ -104,10 +95,10 @@ fun MainPantalla(
     MainPantallaContent(
         state = state,
         snackbarHostState = snackbarHostState,
-        onAlumnoChange = viewModel::onAlumnoChange,
-        onDeleteAlumnoSeleccionado = viewModel::onDeleteAlumnoSeleccionado,
-        onAddAlumno = viewModel::onAddAlumno,
-        onSeleccionarAlumno = viewModel::onSeleccionarAlumno
+        onPersonaChange = viewModel::onPersonaChange,
+        onDeletePersonaSeleccionada = viewModel::onDeletePersonaSeleccionada,
+        onAddLibro = viewModel::onAddLibro,
+        onSeleccionarPersona = viewModel::onSeleccionarPersona
     )
 }
 
@@ -115,10 +106,10 @@ fun MainPantalla(
 fun MainPantallaContent(
     state: MainState,
     snackbarHostState: SnackbarHostState,
-    onAlumnoChange: (Alumno) -> Unit,
-    onDeleteAlumnoSeleccionado: () -> Unit,
-    onAddAlumno: () -> Unit,
-    onSeleccionarAlumno: (Alumno) -> Unit
+    onPersonaChange: (Persona) -> Unit,
+    onDeletePersonaSeleccionada: () -> Unit,
+    onAddLibro: () -> Unit,
+    onSeleccionarPersona: (Persona) -> Unit
 ) {
     Scaffold(
         snackbarHost = {
@@ -152,7 +143,7 @@ fun MainPantallaContent(
                     )
                 Text(
                     modifier = Modifier.weight(0.8F),
-                    text = "Gestión de alumnos",
+                    text = "Mi biblioteca",
                     color = onPinkyPromiseContainerLight,
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
@@ -165,25 +156,19 @@ fun MainPantallaContent(
                     .background(pinkyPromiseContainerLight)
                     .fillMaxWidth()
             ) {
-                ListaAlumnos(
+                ListaPersonas(
                     state = state,
-                    onSeleccionarAlumno = onSeleccionarAlumno
-
-                    )
+                    onSeleccionarPersona = onSeleccionarPersona,
+                    onDeletePersonaSeleccionada = onDeletePersonaSeleccionada,
+                ) {}
             }
             Row(
                 modifier = Modifier
                     .weight(0.45F)
-                    .background(pinkyPromiseContainerLight)
+                    .background(pinkyPromiseContainerDark)
                     .fillMaxWidth()
                     .fillMaxSize()
             ) {
-                FormularioAlumnos(
-                    state = state,
-                    onAlumnoChange = onAlumnoChange,
-                    onDeleteAlumnoSeleccionado = onDeleteAlumnoSeleccionado,
-                    onAddAlumno = onAddAlumno
-                )
 
             }
 
@@ -193,37 +178,128 @@ fun MainPantallaContent(
 
 
 @Composable
-fun ListaAlumnos(
+fun ListaPersonas(
     state: MainState,
-    onSeleccionarAlumno: (Alumno) -> Unit
+    onSeleccionarPersona: (Persona) -> Unit,
+    onDeletePersonaSeleccionada: () -> Unit,
+    function: () -> Unit,
 ) {
     Column() {
-        Text(
-            text = "Lista de alumnos (${state.alumnos.size})",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            items(
-                items = state.alumnos,
-                key = { alumno -> alumno.id },
-            ) { alumno ->
-                ItemAlumno(alumno = alumno, onSeleccionarAlumno = onSeleccionarAlumno)
+        Row() {
+            Column() {
+                Icon(
+                    painter = painterResource(id = R.drawable.personadd),
+                    contentDescription = "person",
+                    modifier = Modifier
+                        .size(30.dp),
+                    tint = onPinkyPromiseContainerLight,
+                )
+            }
+            Column() {
+                Text(
+                    text = "Personas",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Column() {
+                ElevatedButton(
+                    onClick = { onDeletePersonaSeleccionada() },
+                    enabled = state.personaSeleccionado != null,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Red,
+                    ),
+                    modifier = Modifier
+                        .background(Color.Red)
+
+
+                ) {
+                    Text(
+                        text = "Borrar persona",
+                        color = Color.White
+                    )
+                }
+            }
+        }
+        Row() {
+            LazyRow(
+            ) {
+                items(
+                    items = state.personas,
+                    key = { persona -> persona.id },
+                ) { persona ->
+                    ItemPersona(persona = persona, onSeleccionarPersona = onSeleccionarPersona)
+                }
+            }
+        }
+        Row() {
+            LazyColumn(){
+                items(
+                    items = state.personas,
+                    key = { persona -> persona.id },
+            ) { persona ->
+               ItemLibro(persona = persona, libro = Libro("", "", "", false))
+            }}
+        }
+    }
+}
+
+
+@Composable
+fun ItemPersona(
+    persona: Persona,
+    onSeleccionarPersona: (Persona) -> Unit,
+) {
+    Card(
+        onClick = { onSeleccionarPersona(persona) },
+        modifier = Modifier
+
+            .padding(2.dp)
+    ) {
+        Column() {
+            Row(
+
+            ) {
+                Button(
+                    onClick = { Unit },
+                    shape = CircleShape,
+                    modifier = Modifier.size(70.dp)
+                ) {
+                    Text(
+                        text = persona.nombre[0].toString()
+                    )
+                }
+            }
+            Row(
+
+            ) {
+                Text(
+                    text = "${persona.nombre}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Row(
+
+            ) {
+                Text(
+                    text = "${persona.nombre}",
+                    fontSize = 15.sp,
+                )
             }
         }
     }
-
 }
 
 @Composable
-fun ItemAlumno(
-    alumno: Alumno,
-    onSeleccionarAlumno: (Alumno) -> Unit
+fun ItemLibro(
+    persona: Persona,
+    libro: Libro
 ) {
+    Text(
+        text = "Lista de ${persona.nombre}"
+    )
     Card(
-        onClick = {onSeleccionarAlumno(alumno)},
         modifier = Modifier
             .fillMaxSize()
             .padding(2.dp)
@@ -231,200 +307,45 @@ fun ItemAlumno(
     ) {
         Row()
         {
-            Column(
-                modifier = Modifier.weight(0.2F)
-            ) {
+            Text(
+                text = libro.nombre
+            )
+        }
+        Row() {
+            Text(
+                text = libro.autor
+            )
+        }
+        Row() {
+            Column() {
                 Button(
-                    onClick = { Unit},
-                    shape = CircleShape,
-                    modifier = Modifier.size(70.dp)
+                    onClick = { Unit },
+                    modifier = Modifier.size(20.dp)
                 ) {
                     Text(
-                        text = alumno.nombre[0].toString() + alumno.apellidos[0].toString(),
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier.weight(0.6F)
-            ) {
-                Text(
-                    text = "${alumno.nombre} ${alumno.apellidos}",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "${alumno.curso} · ${alumno.edad} años",
-                    fontSize = 15.sp,
-                )
-                Text(
-                    text = alumno.correo,
-                )
-            }
-            Column(modifier = Modifier.weight(0.15F),) {
-                Card(
-                    colors = CardColors(
-                        containerColor = if (alumno.activo) {
-                            barbieDark
+                        text = if (libro.leido) {
+                            "Leído"
                         } else {
-                            barbieLight
-                        },
-                        contentColor = if (alumno.activo) {
-                            onBarbieDark
-                        } else {
-                            onBarbieLight
-                        },
-                        disabledContentColor = Color.Yellow,
-                        disabledContainerColor = Color.Yellow
-                    ),
-                ){
-                    Text(
-                        text = if(alumno.activo){
-                            "Activo"
-                        } else {
-                            "Inactivo"
+                            "No leído"
                         }
                     )
                 }
             }
+            Column() {
+                Button(
+                    onClick = { Unit },
+                    modifier = Modifier.size(20.dp)
+                ) {
+                    Text(
+                        text = libro.genero
+                    )
+                }
+            }
         }
     }
 }
 
-@Composable
-fun FormularioAlumnos(
-    state: MainState,
-    onAlumnoChange: (Alumno) -> Unit,
-    onDeleteAlumnoSeleccionado: () -> Unit,
-    onAddAlumno: () -> Unit
-    ) {
-    Column() {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(0.2F)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.personadd),
-                contentDescription = "school hat",
-                modifier = Modifier
-                    .size(40.dp)
-                    .weight(0.2F),
-                tint = onBarbieDarkMediumContrast
-            )
-            Text(
-                text = "Añadir nuevo alumno",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = onBarbieDarkMediumContrast,
-                modifier = Modifier.weight(0.8F)
-            )
-        }
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.weight(0.25F)
-        ) {
-            OutlinedTextField(
-                value = state.alumno.nombre,
-                onValueChange = { nombre: String -> onAlumnoChange(state.alumno.copy(nombre = nombre)) },
-                label = { Text("Nombre del Alumno") },
-                modifier = Modifier.weight(0.5F)
-            )
-            OutlinedTextField(
-                value = state.alumno.apellidos,
-                onValueChange = { apellidos: String -> onAlumnoChange(state.alumno.copy(apellidos = apellidos)) },
-                label = { Text("Apellidos") },
-                modifier = Modifier.weight(0.5F)
-            )
-        }
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.weight(0.25F)
-        ) {
-            OutlinedTextField(
-                value = state.alumno.curso,
-                onValueChange = { curso: String -> onAlumnoChange(state.alumno.copy(curso = curso)) },
-                label = { Text("Curso") },
-                modifier = Modifier.weight(0.5F)
-            )
-            OutlinedTextField(
-                value = state.alumno.edad,
-                onValueChange = { edad: String ->
-                    onAlumnoChange(state.alumno.copy(edad = edad))
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
-                label = { Text("Edad") },
-                modifier = Modifier.weight(0.5F)
-            )
-        }
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.weight(0.25F),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            OutlinedTextField(
-                value = state.alumno.correo,
-                onValueChange = { correo: String -> onAlumnoChange(state.alumno.copy(correo = correo)) },
-                label = { Text("Correo") },
-                modifier = Modifier.weight(0.53F)
-            )
-
-            Checkbox(
-                checked = state.alumno.activo,
-                onCheckedChange = {checked: Boolean -> onAlumnoChange(state.alumno.copy(activo=checked))},
-                modifier = Modifier.weight(0.1F)
-            )
-            Text(
-                text = "Alumno activo",
-                fontSize = 15.sp,
-                modifier = Modifier.weight(0.4F)
-            )
-
-        }
-
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.weight(0.25F),
-            ) {
-            ElevatedButton(
-                onClick = {onAddAlumno()},
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Red
-                ),
-                modifier = Modifier.background(pinkyPromiseLightMediumContrast)
-
-            ) {
-                Text(
-                    text = "Añadir Alumno",
-                    color = Color.White
-                )
-            }
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.weight(0.25F)
-        ) {
-            ElevatedButton(
-                onClick = {onDeleteAlumnoSeleccionado()},
-                enabled = state.alumnoSeleccionado!=null,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Red,
-                    disabledContainerColor = Color.Blue
-                ),
-                modifier = Modifier.fillMaxSize()
-                    .background(Color.Red)
-
-            ) {
-                Text(
-                    text = "Borrar Alumno Seleccionado",
-                    color = Color.White
-                )
-            }
-        }
-    }
-
-}
 
 
 @Preview(showBackground = true)
@@ -433,83 +354,69 @@ fun GreetingPreview() {
     AppTheme {
         MainPantallaContent(
             state = MainState(
-                alumno = Alumno("", "", "", "0", "", false,mutableListOf()),
-                alumnos = listOf(
-                    Alumno(
-                        "Lucía",
-                        "Álvarez García",
-                        "1ºDAM",
-                        "18",
-                        "lucia.alvarez@iesquevedo.es", true,
-                        mutableListOf(
-                            Boletin("Programación", 3),
-                            Boletin("Bases de Datos", 7),
-                            Boletin("Lenguaje de Marcas", 8),
-                            Boletin("Sistemas Informáticos", 5),
+                persona = Persona("", false, mutableListOf()),
+                personas = listOf(
+                    Persona(
+                        "Lucía Álvarez", true, mutableListOf(
+                            Libro(
+                                "El nombre del viento",
+                                "Patrick Rothfuss",
+                                "Fantasía",
+                                true
+                            ),
+                            Libro("Dune", "Frank Herbert", "Ciencia ficción", false),
+                            Libro("Fundación", "Isaac Asimov", "Aventura", true),
+                            Libro("El Hobit", "J.R.R. Tolkien", "Fantasía", false),
+                            Libro("Neuromante", "William Gibson", "Aventura", true),
                         )
                     ),
-                    Alumno(
-                        "Marco",
-                        "Castillo Ruiz",
-                        "2ºASIR",
-                        "19",
-                        "marco.castillo@iesquevedo.es", true,
-                        mutableListOf(
-                            Boletin("Seguridad", 3),
-                            Boletin("Empresa", 7),
-                            Boletin("Lenguaje de Marcas", 8),
-                            Boletin("Sistemas Informáticos", 5)
+                    Persona(
+                        "Marco Castillo", true, mutableListOf(
+                            Libro(
+                                "El nombre del viento",
+                                "Patrick Rothfuss",
+                                "Fantasía",
+                                true
+                            ),
+                            Libro("Dune", "Frank Herbert", "Ciencia ficción", false),
                         )
                     ),
-                    Alumno(
-                        "Sofía",
-                        "Pérez Martín",
-                        "1ºSMR",
-                        "17",
-                        "sofia.perez@iesquevedo.es", false,
-                        mutableListOf(
-                            Boletin("FOL", 3),
-                            Boletin("Inglés", 7),
-                            Boletin("Redes", 8),
-                            Boletin("Sistemas Informáticos", 5)
+                    Persona(
+                        "Sofía Pérez", true, mutableListOf(
+                            Libro(
+                                "El nombre del viento",
+                                "Patrick Rothfuss",
+                                "Fantasía",
+                                true
+                            ),
+                            Libro("Dune", "Frank Herbert", "Ciencia ficción", false),
+                            Libro("Fundación", "Isaac Asimov", "Aventura", true),
+                            Libro("El Hobit", "J.R.R. Tolkien", "Fantasía", false),
+                            Libro("Crepúsculo", "Stephanie Meyer", "Fantasía", true),
+                            Libro("Luna Nueva", "Stephanie Meyer", "Fantasía", true),
+                            Libro("Eclipse", "Stephanie Meyer", "Fantasía", true),
                         )
                     ),
-                    Alumno(
-                        "Daniel",
-                        "Rodríguez López",
-                        "2ºDAM",
-                        "20",
-                        "daniel.rodriguez@iesquevedo.es", true,
-                        mutableListOf(
-                            Boletin("PSP", 3),
-                            Boletin("Acceso a Datos", 2),
-                            Boletin("Móviles", 8),
-                            Boletin("SGE", 7)
+                    Persona(
+                        "Daniel Rodríguez", true, mutableListOf(
+                            Libro(
+                                "El nombre del viento",
+                                "Patrick Rothfuss",
+                                "Fantasía",
+                                true
+                            ),
                         )
                     ),
-                    Alumno(
-                        "Elena",
-                        "Moreno Sánchez",
-                        "1ºASIR",
-                        "18",
-                        "elena.moreno@iesquevedo.es", true,
-                        mutableListOf(
-                            Boletin("Redes", 3),
-                            Boletin("Sistemas Informáticos", 7),
-                            Boletin("FOL", 8),
-                            Boletin("Bases de Datos", 5)
-                        )
-                    )
                 ),
-                alumnoSeleccionado = null,
+                personaSeleccionado = null,
                 selected = false,
                 error = null
             ),
             snackbarHostState = SnackbarHostState(),
-            onAlumnoChange = {},
-            onDeleteAlumnoSeleccionado = {},
-            onSeleccionarAlumno = {},
-            onAddAlumno = {}
+            onPersonaChange = {},
+            onDeletePersonaSeleccionada = {},
+            onSeleccionarPersona = {},
+            onAddLibro = {}
         )
     }
 }
